@@ -7,13 +7,12 @@ import static org.talend.daikon.spring.reactive.sat.authentication.TalendJwtConv
 import static org.talend.daikon.spring.reactive.sat.authentication.TalendJwtConverter.TALEND_SAT_PERMISSIONS_FIELD;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
-
-import net.minidev.json.JSONArray;
 
 class TalendJwtConverterTest {
 
@@ -35,9 +34,7 @@ class TalendJwtConverterTest {
 
     @Test
     void convertJwtWithPermissions() {
-        JSONArray permissions = new JSONArray();
-        permissions.add("perm1");
-        permissions.add("perm2");
+        List<String> permissions = List.of("perm1", "perm2");
         Jwt jwt = Jwt.withTokenValue("fake").header("test", "fake").claim(TALEND_PERMISSIONS_FIELD, permissions).build();
         Collection<GrantedAuthority> grantedAuthorities = talendJwtConverter.convert(jwt);
         assertNotNull(grantedAuthorities);
@@ -46,9 +43,7 @@ class TalendJwtConverterTest {
 
     @Test
     void convertJwtSAT() {
-        JSONArray permissions = new JSONArray();
-        permissions.add("perm1");
-        permissions.add("perm2");
+        List<String> permissions = List.of("perm1", "perm2");
         Jwt jwt = Jwt.withTokenValue("fake").header("test", "fake").claim(TALEND_SAT_PERMISSIONS_FIELD, permissions).build();
         Collection<GrantedAuthority> grantedAuthorities = talendJwtConverter.convert(jwt);
         assertNotNull(grantedAuthorities);
