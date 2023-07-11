@@ -25,9 +25,6 @@ import org.talend.daikon.model.PullRequest;
 
 import com.google.common.collect.Streams;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 public abstract class AbstractGitItemFinder {
 
     static final Pattern JIRA_DETECTION_PATTERN = Pattern.compile(".*((?<!([A-Z]{1,10})-?)[A-Z]+-\\d+).*");
@@ -151,13 +148,7 @@ public abstract class AbstractGitItemFinder {
                 });
     }
 
-    @Getter
-    @AllArgsConstructor
-    static class GitRange {
-
-        private ObjectId start;
-
-        private ObjectId end;
+    static record GitRange(ObjectId start, ObjectId end) {
 
     }
 }

@@ -4,14 +4,8 @@ import java.io.PrintWriter;
 
 import org.eclipse.jgit.revwalk.RevCommit;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode
-@AllArgsConstructor
-public class MiscReleaseNoteItem implements ReleaseNoteItem {
-
-    private final GitCommit commit;
+public record MiscReleaseNoteItem(GitCommit commit) implements ReleaseNoteItem {
 
     @Override
     public ReleaseNoteItemType getIssueType() {
@@ -20,12 +14,12 @@ public class MiscReleaseNoteItem implements ReleaseNoteItem {
 
     @Override
     public void writeTo(PrintWriter writer) {
-        final PullRequest pullRequest = commit.getPullRequest();
-        final RevCommit commit = this.commit.getCommit();
+        final PullRequest pullRequest = commit.pullRequest();
+        final RevCommit commit = this.commit.commit();
         if (pullRequest != null) {
-            final String processedShortMessage = commit.getShortMessage().replace("(#" + pullRequest.getDisplay() + ")", "");
+            final String processedShortMessage = commit.getShortMessage().replace("(#" + pullRequest.display() + ")", "");
             writer.println(
-                    "- " + processedShortMessage + " (link:" + pullRequest.getUrl() + "[#" + pullRequest.getDisplay() + "])");
+                    "- " + processedShortMessage + " (link:" + pullRequest.url() + "[#" + pullRequest.display() + "])");
         } else {
             writer.println("- " + commit.getShortMessage());
         }
@@ -33,7 +27,7 @@ public class MiscReleaseNoteItem implements ReleaseNoteItem {
 
     @Override
     public String toString() {
-        return "MiscReleaseNoteItem{" + getIssueType() + ", " + "commit=" + commit.getCommit().getShortMessage() + '}';
+        return "MiscReleaseNoteItem{" + getIssueType() + ", " + "commit=" + commit.commit().getShortMessage() + '}';
     }
 
 }

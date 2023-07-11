@@ -2,27 +2,14 @@ package org.talend.daikon.model;
 
 import java.io.PrintWriter;
 
-import com.atlassian.jira.rest.client.api.domain.Issue;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-
-@EqualsAndHashCode
-@AllArgsConstructor
-public class JiraReleaseNoteItem implements ReleaseNoteItem {
-
-    private final Issue issue;
-
-    private final String jiraServerUrl;
-
-    private final PullRequest pullRequest;
-
-    private final String shortMessage;
+public record JiraReleaseNoteItem(JiraIssue issue, String jiraServerUrl, PullRequest pullRequest,
+                                  String shortMessage) implements ReleaseNoteItem {
 
     @Override
     public ReleaseNoteItemType getIssueType() {
         if (issue != null) {
-            return ReleaseNoteItemType.fromJiraIssueType(issue.getIssueType());
+            return ReleaseNoteItemType.fromJiraIssueType(issue.issueType());
         }
         return ReleaseNoteItemType.MISC;
     }
@@ -31,12 +18,12 @@ public class JiraReleaseNoteItem implements ReleaseNoteItem {
     public void writeTo(PrintWriter writer) {
         if (issue != null) {
             writer.print(
-                    "- link:" + jiraServerUrl + "/browse/" + issue.getKey() + "[" + issue.getKey() + "]: " + issue.getSummary());
+                    "- link:" + jiraServerUrl + "/browse/" + issue.key() + "[" + issue.key() + "]: " + issue.summary());
         } else if (shortMessage != null) {
             writer.print("- " + shortMessage);
         }
         if (pullRequest != null) {
-            writer.println(" (link:" + pullRequest.getUrl() + "[#" + pullRequest.getDisplay() + "])");
+            writer.println(" (link:" + pullRequest.url() + "[#" + pullRequest.display() + "])");
         } else {
             writer.println();
         }
@@ -46,7 +33,7 @@ public class JiraReleaseNoteItem implements ReleaseNoteItem {
     public String toString() {
         String description = "JiraReleaseNoteItem{" + getIssueType();
         if (issue != null) {
-            description += ", " + "issue=" + issue.getSummary() + '}';
+            description += ", " + "issue=" + issue.summary() + '}';
         } else if (shortMessage != null) {
             description += ", " + "commit=" + shortMessage + '}';
         }

@@ -21,28 +21,38 @@
 
     <properties>
         <!-- release note plugin is not java 17 compatible because of JIRA client (not maintain)-->
-        <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.version>3.8.6</maven.version>
         <org.eclipse.jgit.version>6.5.0.202303070854-r</org.eclipse.jgit.version>
-        <jira-rest-java-client-core.version>5.2.4</jira-rest-java-client-core.version>
         <fugue.version>4.7.2</fugue.version>
         <maven-plugin-annotations.version>3.6.0</maven-plugin-annotations.version>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jettison</groupId>
+            <artifactId>jettison</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-common</artifactId>
+            <version>3.1.2</version>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse.jgit</groupId>
             <artifactId>org.eclipse.jgit</artifactId>
             <version>${org.eclipse.jgit.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.atlassian.jira</groupId>
-            <artifactId>jira-rest-java-client-core</artifactId>
-            <version>${jira-rest-java-client-core.version}</version>
         </dependency>
         <dependency>
             <groupId>io.atlassian.fugue</groupId>
@@ -53,6 +63,10 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -71,10 +85,6 @@
             <artifactId>maven-artifact</artifactId>
             <version>${maven.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>

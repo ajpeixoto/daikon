@@ -8,9 +8,6 @@ import org.talend.daikon.model.GitCommit;
 import org.talend.daikon.model.MiscReleaseNoteItem;
 import org.talend.daikon.model.ReleaseNoteItem;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * Finds Git commit for release notes <b>NOT</b> linked to any Jira.
  */
@@ -28,22 +25,18 @@ public class MiscGitItemFinder extends AbstractGitItemFinder implements ItemFind
     public Stream<? extends ReleaseNoteItem> find() {
         try {
             return getGitCommits() //
-                    .filter(c -> !c.getCommit().getShortMessage().contains("release")) //
-                    .map(c -> new Tuple(JIRA_DETECTION_PATTERN.matcher(c.getCommit().getShortMessage()), c)) //
-                    .filter(t -> !t.getMatcher().matches()) //
-                    .map(t -> new MiscReleaseNoteItem(t.getGitCommit()));
+                    .filter(c -> !c.commit().getShortMessage().contains("release")) //
+                    .map(c -> new Tuple(JIRA_DETECTION_PATTERN.matcher(c.commit().getShortMessage()), c)) //
+                    .filter(t -> !t.matcher().matches()) //
+                    .map(t -> new MiscReleaseNoteItem(t.gitCommit()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    @Getter
-    @AllArgsConstructor
-    private static class Tuple {
-
-        private Matcher matcher;
-
-        private GitCommit gitCommit;
+    // @copilot(100%)
+    private static record Tuple(Matcher matcher, GitCommit gitCommit) {
 
     }
+    // @copilot
 }

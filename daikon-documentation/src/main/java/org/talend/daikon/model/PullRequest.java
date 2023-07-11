@@ -1,14 +1,6 @@
 package org.talend.daikon.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+public record PullRequest(String url, String display) {
 
-@Getter
-@AllArgsConstructor
-public class PullRequest {
-
-    private final String url;
-
-    private final String display;
 
 }

@@ -1,7 +1,5 @@
 package org.talend.daikon.model;
 
-import com.atlassian.jira.rest.client.api.domain.IssueType;
-
 public enum ReleaseNoteItemType {
 
     BUG("Fix"),
@@ -15,8 +13,8 @@ public enum ReleaseNoteItemType {
         this.displayName = displayName;
     }
 
-    public static ReleaseNoteItemType fromJiraIssueType(IssueType issueType) {
-        switch (issueType.getName().toLowerCase()) {
+    public static ReleaseNoteItemType fromJiraIssueType(String issueType) {
+        switch (issueType.toLowerCase()) {
         case "bug":
             return BUG;
         case "work item":

@@ -14,8 +14,8 @@ public class GitAuthorFinder extends AbstractGitItemFinder implements AuthorFind
     @Override
     public Stream<Author> findAuthors() {
         return getGitCommits() //
-                .filter(c -> !c.getCommit().getShortMessage().contains("release")) //
-                .map(c -> new Author(c.getCommit().getAuthorIdent().getName())) //
+                .filter(c -> !c.commit().getShortMessage().contains("release")) //
+                .map(c -> new Author(c.commit().getAuthorIdent().getName())) //
                 .distinct();
     }
 

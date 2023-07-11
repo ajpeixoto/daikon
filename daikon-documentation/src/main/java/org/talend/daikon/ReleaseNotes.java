@@ -25,13 +25,11 @@ import org.talend.daikon.finders.git.GitAuthorFinder;
 import org.talend.daikon.finders.git.GitReleaseDateFinder;
 import org.talend.daikon.finders.git.JiraGitItemFinder;
 import org.talend.daikon.finders.git.MiscGitItemFinder;
+import org.talend.daikon.jira.JiraClient;
+import org.talend.daikon.jira.JiraClientImpl;
 import org.talend.daikon.model.Author;
 import org.talend.daikon.model.ReleaseNoteItem;
 import org.talend.daikon.model.ReleaseNoteItemType;
-
-import com.atlassian.jira.rest.client.api.JiraRestClient;
-import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
-import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 
 /**
  * Goal which generates release notes based on fixed Jira issues in current version.
@@ -79,8 +77,8 @@ public class ReleaseNotes extends AbstractMojo {
             final String jiraVersion = StringUtils.substringBefore(version, "-");
             LOGGER.debug("Jira version: {}", jiraVersion);
             LOGGER.info("Connecting using '{}' / '{}'", user, StringUtils.isEmpty(password) ? "<empty>" : "****");
-            final JiraRestClientFactory factory = new AsynchronousJiraRestClientFactory();
-            final JiraRestClient client = factory.createWithBasicHttpAuthentication(jiraServerUri, user, password);
+
+            final JiraClient client = new JiraClientImpl(jiraServerUri, user, password);
 
             // Stream all release note items
             final Optional<? extends Stream<? extends ReleaseNoteItem>> streams = Stream.<ItemFinder> of( //
@@ -105,7 +103,7 @@ public class ReleaseNotes extends AbstractMojo {
                 writer.println("= " + name + " Release Notes (" + jiraVersion + ") - " + dateFormat.format(releaseDate));
 
                 writer.println();
-                final String allAuthors = authors.map(author -> "@" + author.getName()).collect(Collectors.joining(", "));
+                final String allAuthors = authors.map(author -> "@" + author.name()).collect(Collectors.joining(", "));
                 writer.println("Thanks to " + allAuthors);
 
                 final ThreadLocal<ReleaseNoteItemType> previousIssueType = new ThreadLocal<>();

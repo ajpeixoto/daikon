@@ -17,8 +17,8 @@ public class GitReleaseDateFinder extends AbstractGitItemFinder implements Relea
     public Date find() {
         try {
             final Optional<Date> optionalDate = getGitCommits() //
-                    .max(comparing(c -> c.getCommit().getCommitTime())) //
-                    .map(c -> c.getCommit().getAuthorIdent().getWhen());
+                    .max(comparing(c -> c.commit().getCommitTime())) //
+                    .map(c -> c.commit().getAuthorIdent().getWhen());
             return optionalDate.orElseGet(() -> new Date(0));
         } catch (Exception e) {
             throw new RuntimeException(e);

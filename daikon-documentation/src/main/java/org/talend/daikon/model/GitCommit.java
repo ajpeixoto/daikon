@@ -2,15 +2,7 @@ package org.talend.daikon.model;
 
 import org.eclipse.jgit.revwalk.RevCommit;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+public record GitCommit(RevCommit commit, PullRequest pullRequest) {
 
-@Getter
-@AllArgsConstructor
-public class GitCommit {
-
-    private RevCommit commit;
-
-    private PullRequest pullRequest;
 
 }
