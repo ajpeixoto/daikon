@@ -419,7 +419,7 @@ public class AvroUtils {
     private static Schema.Field cloneAvroField(Schema.Field origin) {
         try {
             return new Schema.Field(origin.name(), origin.schema(), origin.doc(), origin.defaultVal());
-        } catch(AvroTypeException e) {
+        } catch (AvroTypeException e) {
             return new Schema.Field(origin.name(), origin.schema(), origin.doc(), null);
         }
     }
