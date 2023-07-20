@@ -1,0 +1,6 @@
+= Daikon Release Notes (8.4.0) - 07/20/2023
+
+Thanks to @mabdel-talend
+
+== Other
+- fix(TPSVC-20028): autoconfiguration file (#1004) (link:https://github.com/Talend/daikon/pull/1004[#1004])
