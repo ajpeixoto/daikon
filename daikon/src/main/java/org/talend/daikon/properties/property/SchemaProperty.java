@@ -58,7 +58,7 @@ public class SchemaProperty extends Property<Schema> {
     public Schema getValue() {
         Schema returnValue = null;
         if (storedValue != null) {
-            returnValue = new Schema.Parser().parse(storedValue.toString());
+            returnValue = new Schema.Parser().setValidateDefaults(false).parse(storedValue.toString());
             if (propertyValueEvaluator != null) {
                 returnValue = propertyValueEvaluator.evaluate(this, returnValue);
             } // else not evaluator so return the storedValue

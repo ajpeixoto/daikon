@@ -94,7 +94,7 @@ public class JsonPropertiesResolver {
             return dataNode.booleanValue();
         } else if (Schema.class.equals(type)) {
             if (StringUtils.isNotBlank(dataNode.textValue())) {
-                return new Schema.Parser().parse(dataNode.textValue());
+                return new Schema.Parser().setValidateDefaults(false).parse(dataNode.textValue());
             } else {
                 return null;
             }

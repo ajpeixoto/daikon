@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.avro.AvroTypeException;
 import org.apache.avro.LogicalTypes;
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Type;
@@ -235,7 +236,7 @@ public class AvroUtils {
                 newSchema = Schema.createRecord(schema.getName(), schema.getDoc(), schema.getNamespace(), schema.isError());
                 List<Schema.Field> copyFieldList = new ArrayList<>();
                 for (Schema.Field se : schema.getFields()) {
-                    copyFieldList.add(new Schema.Field(se.name(), se.schema(), se.doc(), se.defaultVal()));
+                    copyFieldList.add(cloneAvroField(se));
                 }
                 newSchema.setFields(copyFieldList);
                 Map<String, Object> props = schema.getObjectProps();
@@ -266,7 +267,7 @@ public class AvroUtils {
             newSchema = Schema.createRecord(schema.getName(), schema.getDoc(), schema.getNamespace(), schema.isError());
             List<Schema.Field> copyFieldList = new ArrayList<>();
             for (Schema.Field se : schema.getFields()) {
-                copyFieldList.add(new Schema.Field(se.name(), se.schema(), se.doc(), se.defaultVal()));
+                copyFieldList.add(cloneAvroField(se));
             }
             for (Schema.Field field : fields) {
                 copyFieldList.add(field);
@@ -299,7 +300,7 @@ public class AvroUtils {
                 if (fieldNames.contains(se.name())) {
                     continue;
                 }
-                copyFieldList.add(new Schema.Field(se.name(), se.schema(), se.doc(), se.defaultVal()));
+                copyFieldList.add(cloneAvroField(se));
             }
             newSchema.setFields(copyFieldList);
             Map<String, Object> props = schema.getObjectProps();
@@ -413,5 +414,13 @@ public class AvroUtils {
     public static boolean isNumerical(Schema.Type type) {
         return Schema.Type.INT.equals(type) || Schema.Type.LONG.equals(type) //
                 || Schema.Type.DOUBLE.equals(type) || Schema.Type.FLOAT.equals(type);
+    }
+
+    private static Schema.Field cloneAvroField(Schema.Field origin) {
+        try {
+            return new Schema.Field(origin.name(), origin.schema(), origin.doc(), origin.defaultVal());
+        } catch(AvroTypeException e) {
+            return new Schema.Field(origin.name(), origin.schema(), origin.doc(), null);
+        }
     }
 }
