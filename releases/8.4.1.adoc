@@ -1,0 +1,31 @@
+= Daikon Release Notes (8.4.1) - 07/21/2023
+
+Thanks to @Franck Zetule, @mabdel-talend, @Colm O hEigeartaigh, @Laurent Meunier, @Jérémy Hervy, @gleloup, @bjacobtalend, @Viacheslav Gagara, @C​⁠‌​⁠⁠‌​﻿​⁠‍‌‌​​‍‌yprien Q​⁠‌​⁠⁠‌​﻿​⁠‍‌‌​​‍‌uilici, @Fabien Abballe, @gabriel-cpereira, @Mark Butko
+
+== Other
+- chore(TPRUN-6337): CVE-2023-2976 Force com.google.guava:guava:32.1.1-jre
+- fix(TPSVC-20028): autoconfiguration file (#1004) (link:https://github.com/Talend/daikon/pull/1004[#1004])
+- feat(TPSVC-20028): client credential context population with annotation (#971) (link:https://github.com/Talend/daikon/pull/971[#971])
+- fix(TPRUN-5912): fixed credential flow for reactive app (#997) (link:https://github.com/Talend/daikon/pull/997[#997])
+- fix(TDKN-349): Fix Release Notes build (#996) (link:https://github.com/Talend/daikon/pull/996[#996])
+- chore(TPRUN-6073): Update spring-boot.version 3.0.7 -> 3.1.0 (#990) (link:https://github.com/Talend/daikon/pull/990[#990])
+- feat(TPSVC-20437): Add support for SAT issued by IAM (#993) (link:https://github.com/Talend/daikon/pull/993[#993])
+- feat(TPRUN-5914): update reactive security for spring boot 3 (#984) (link:https://github.com/Talend/daikon/pull/984[#984])
+- fix(TPRUN-6064): CVE-2022-45688 com.github.erosb:everit-json-schema to 1.14.2 (#988) (link:https://github.com/Talend/daikon/pull/988[#988])
+- feat(TPGOV-2187): Allow nullable arrays (#983) (link:https://github.com/Talend/daikon/pull/983[#983])
+- chore(TPGOV-2071): Implement get sample metadata endpoint V2 (#969) (link:https://github.com/Talend/daikon/pull/969[#969])
+- TPSVC-20004: make correlationId configuration conditional (#972) (link:https://github.com/Talend/daikon/pull/972[#972])
+- fix(TFD-15236): Allow serialization/de-serialization of DatasetSchema without a custom mapper (#974) (link:https://github.com/Talend/daikon/pull/974[#974])
+- wi(ARCH-710): provide (ser/deser)ializer for cloud event + schema (#970) (link:https://github.com/Talend/daikon/pull/970[#970])
+- feat(TPGOV-2111): update originalFieldMetadata serialization and deserialization (#966) (link:https://github.com/Talend/daikon/pull/966[#966])
+- fix(TPSVC-20032): prioritize auth exception handler (#964) (link:https://github.com/Talend/daikon/pull/964[#964])
+- feat(TPGOV-2098): add support for JDBCMetadata class deserialization (#962) (link:https://github.com/Talend/daikon/pull/962[#962])
+- wi(ARCH-695): Move Daikon to Java 17/SB 3 (#952) (link:https://github.com/Talend/daikon/pull/952[#952])
+- Revert "Update semgrep.yml"
+- Revert "Trying to fix semgrep"
+- Trying to fix semgrep
+- Update semgrep.yml
+- Updating Spring Cloud to 2022.0.2  (link:https://github.com/Talend/daikon/pull/977[#977])
+- Updating Spring Boot to 3.0.7  (link:https://github.com/Talend/daikon/pull/975[#975])
+- fix: remove directory switch  (link:https://github.com/Talend/daikon/pull/968[#968])
+- Delete log4j1 audit logging  (link:https://github.com/Talend/daikon/pull/961[#961])
