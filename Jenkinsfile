@@ -42,7 +42,7 @@ kind: Pod
 spec:
   containers:
     - name: maven
-      image: artifactory.datapwn.com/tlnd-docker-prod/talend/common/tsbi/jdk17-builder-base:3.1.10-20230315171124
+      image: artifactory.datapwn.com/tlnd-docker-prod/talend/common/tsbi/jdk17-builder-base:3.1.16-20230712160535
       command:
       - cat
       tty: true
@@ -55,7 +55,7 @@ spec:
         - name: DOCKER_HOST
           value: tcp://localhost:2375
     - name: docker-daemon
-      image: artifactory.datapwn.com/docker-io-remote/docker:19.03.1-dind
+      image: artifactory.datapwn.com/docker-io-remote/docker:23.0.6-dind
       env:
         - name: DOCKER_TLS_CERTDIR
           value: ""

@@ -1,12 +1,8 @@
 package org.talend.daikon.logging.event.layout;
 
 import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,11 +12,7 @@ import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.Node;
-import org.apache.logging.log4j.core.config.plugins.Plugin;
-import org.apache.logging.log4j.core.config.plugins.PluginBuilderAttribute;
-import org.apache.logging.log4j.core.config.plugins.PluginBuilderFactory;
-import org.apache.logging.log4j.core.config.plugins.PluginConfiguration;
-import org.apache.logging.log4j.core.config.plugins.PluginElement;
+import org.apache.logging.log4j.core.config.plugins.*;
 import org.apache.logging.log4j.core.layout.AbstractStringLayout;
 import org.apache.logging.log4j.core.layout.ByteBufferDestination;
 import org.apache.logging.log4j.core.layout.Encoder;
@@ -39,7 +31,7 @@ import co.elastic.logging.JsonUtils;
 @Plugin(name = "Log4j2ECSLayout", category = Node.CATEGORY, elementType = Layout.ELEMENT_TYPE, printObject = true)
 public class Log4j2JSONLayout extends AbstractStringLayout {
 
-    public static final Charset UTF_8 = Charset.forName("UTF-8");
+    public static final Charset UTF_8 = StandardCharsets.UTF_8;
 
     private final List<AdditionalField> additionalFields;
 
@@ -154,10 +146,9 @@ public class Log4j2JSONLayout extends AbstractStringLayout {
         if (contextStackContainsTags || markerContainsTags) {
             EcsJsonSerializer.serializeTagStart(builder);
             if (contextStackContainsTags) {
-                final int len = contextStack.size();
-                for (int i = 0; i < len; i++) {
+                for (String s : contextStack) {
                     builder.append('\"');
-                    JsonUtils.quoteAsString(contextStack.get(i), builder);
+                    JsonUtils.quoteAsString(s, builder);
                     builder.append("\",");
                 }
             }
@@ -172,10 +163,10 @@ public class Log4j2JSONLayout extends AbstractStringLayout {
         if (marker != null && !EcsFieldsMarker.ECS_FIELDS_MARKER_NAME.equals(marker.getName())) {
             EcsJsonSerializer.serializeSingleTag(builder, marker.getName());
         }
-        if (marker.hasParents()) {
+        if (marker != null && marker.hasParents()) {
             final Marker[] parents = marker.getParents();
-            for (int i = 0; i < parents.length; i++) {
-                serializeMarkerTag(builder, parents[i]);
+            for (Marker parent : parents) {
+                serializeMarkerTag(builder, parent);
             }
         }
     }
@@ -185,16 +176,15 @@ public class Log4j2JSONLayout extends AbstractStringLayout {
             EcsSerializer.serializeCustomMarker(builder, marker.getName());
             if (marker.hasParents()) {
                 final Marker[] parents = marker.getParents();
-                for (int i = 0; i < parents.length; i++) {
-                    serializeCustomMarkers(builder, parents[i]);
+                for (Marker parent : parents) {
+                    serializeCustomMarkers(builder, parent);
                 }
             }
         }
     }
 
     public void setMetaFields(final Map<String, String> metaFields) {
-        additionalFields.addAll(metaFields.entrySet().stream().map(e -> new AdditionalField(e.getKey(), e.getValue()))
-                .collect(Collectors.toList()));
+        additionalFields.addAll(metaFields.entrySet().stream().map(e -> new AdditionalField(e.getKey(), e.getValue())).toList());
     }
 
     public static class Builder implements org.apache.logging.log4j.core.util.Builder<Log4j2JSONLayout> {

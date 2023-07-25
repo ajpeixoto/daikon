@@ -19,7 +19,6 @@ class AvlTreeTest {
         final AvlTreeBuilder<Integer, String> treeBuilder = new AvlTreeBuilder<>(builderMemo);
 
         for (int i = 1; i <= 730; i++) {
-            // System.out.println("test " + i);
             final int iCopy = i;
             treeBuilder.insertNode(Integer.valueOf(i), () -> "Node " + iCopy);
 

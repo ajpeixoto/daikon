@@ -2,10 +2,8 @@ package org.talend.logging.audit.logback;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.talend.logging.audit.logback.LogbackConfigurer.LOG_AUDIT_SOCKET_APPENDER_NAME;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,6 +14,7 @@ import java.util.Collection;
 import java.util.concurrent.CountDownLatch;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.MDC;
 import org.talend.daikon.logging.event.layout.LogbackJSONLayout;
 import org.talend.logging.audit.impl.AuditConfiguration;
 import org.talend.logging.audit.impl.AuditConfigurationMap;
@@ -25,6 +24,7 @@ import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.PatternLayout;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.LoggingEventVO;
+import ch.qos.logback.classic.util.LogbackMDCAdapter;
 import ch.qos.logback.core.Appender;
 import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.Layout;
@@ -62,10 +62,12 @@ public class LogbackConfigurerTest {
         final CountDownLatch latch = new CountDownLatch(1);
         try (final ServerSocket socket = new ServerSocket(0)) {
             System.setProperty("LogbackConfigurerTest_testSocketConfig_port", Integer.toString(socket.getLocalPort()));
-            new Thread(() -> {
+
+            Thread threadLogListener = new Thread(() -> {
                 try (final Socket accept = socket.accept();
                         final ObjectInputStream stream = new ObjectInputStream(accept.getInputStream())) {
-                    final LoggingEventVO eventVO = LoggingEventVO.class.cast(stream.readObject());
+
+                    final LoggingEventVO eventVO = (LoggingEventVO) stream.readObject();
                     synchronized (messages) {
                         messages.add(eventVO.getMessage() + "/" + eventVO.getMdc().get("application"));
                     }
@@ -74,20 +76,27 @@ public class LogbackConfigurerTest {
                 } finally {
                     latch.countDown();
                 }
-            }, getClass() + ".testSocketConfig").start();
+            }, getClass() + ".testSocketConfig");
+            threadLogListener.start();
 
-            final LoggerContext context = new LoggerContext();
+            final LoggerContext loggerContext = new LoggerContext();
+            if (loggerContext.getMDCAdapter() == null) {
+                // Cf https://github.com/spring-projects/spring-boot/issues/36177
+                loggerContext.setMDCAdapter((LogbackMDCAdapter) MDC.getMDCAdapter());
+            }
             final AuditConfigurationMap config = AuditConfiguration.loadFromClasspath("/configurer.socket.audit.properties");
-            LogbackConfigurer.configure(config, context);
-            final Logger logger = context.getLogger("testSocketLogger");
+            LogbackConfigurer.configure(config, loggerContext);
+            final Logger logger = loggerContext.getLogger("testSocketLogger");
 
-            final Appender<ILoggingEvent> appender = logger.getAppender("auditSocketAppender");
+            final Appender<ILoggingEvent> appender = logger.getAppender(LOG_AUDIT_SOCKET_APPENDER_NAME);
             assertNotNull(appender);
             assertThat(appender, instanceOf(AbstractSocketAppender.class));
 
-            final AbstractSocketAppender<ILoggingEvent> socketAppender = AbstractSocketAppender.class.cast(appender);
+            final AbstractSocketAppender socketAppender = (AbstractSocketAppender) appender;
+
             assertEquals("localhost", socketAppender.getRemoteHost());
             assertEquals(socket.getLocalPort(), socketAppender.getPort());
+            assertTrue(socketAppender.isStarted());
 
             final String json = "{\"message\":\"yes\"}";
             logger.info(json);
@@ -130,8 +139,8 @@ public class LogbackConfigurerTest {
         assertEquals("httpuser", appender.getUsername());
         assertEquals(1000, appender.getConnectTimeout());
         assertEquals(50, appender.getReadTimeout());
-        assertEquals(false, appender.isAsync());
-        assertEquals(true, appender.isPropagateExceptions());
+        assertFalse(appender.isAsync());
+        assertTrue(appender.isPropagateExceptions());
         assertEquals("UTF-16", appender.getEncoding());
 
         assertTrue(appender.getLayout() instanceof LogbackJSONLayout);

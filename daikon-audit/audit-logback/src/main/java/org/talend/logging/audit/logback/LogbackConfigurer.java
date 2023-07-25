@@ -1,6 +1,7 @@
 package org.talend.logging.audit.logback;
 
 import static java.util.Objects.requireNonNull;
+import static org.talend.logging.audit.impl.AuditConfiguration.*;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -9,12 +10,7 @@ import java.util.Map;
 import org.talend.daikon.logging.event.layout.LogbackJSONLayout;
 import org.talend.logging.audit.AuditLoggingException;
 import org.talend.logging.audit.LogAppenders;
-import org.talend.logging.audit.impl.AuditConfiguration;
-import org.talend.logging.audit.impl.AuditConfigurationMap;
-import org.talend.logging.audit.impl.EventFields;
-import org.talend.logging.audit.impl.LogAppendersSet;
-import org.talend.logging.audit.impl.LogTarget;
-import org.talend.logging.audit.impl.PropagateExceptions;
+import org.talend.logging.audit.impl.*;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
@@ -40,15 +36,16 @@ import ch.qos.logback.core.util.FileSize;
  */
 public final class LogbackConfigurer {
 
+    public static final String LOG_AUDIT_SOCKET_APPENDER_NAME = "auditSocketAppender";
+
     private LogbackConfigurer() {
     }
 
     public static void configure(AuditConfigurationMap config, LoggerContext loggerContext) {
-        final Logger logger = loggerContext.getLogger(AuditConfiguration.ROOT_LOGGER.getString(config));
-
+        final Logger logger = loggerContext.getLogger(ROOT_LOGGER.getString(config));
         logger.setAdditive(false);
 
-        final LogAppendersSet appendersSet = AuditConfiguration.LOG_APPENDER.getValue(config, LogAppendersSet.class);
+        final LogAppendersSet appendersSet = LOG_APPENDER.getValue(config, LogAppendersSet.class);
 
         if (appendersSet == null || appendersSet.isEmpty()) {
             throw new AuditLoggingException("No audit appenders configured.");
@@ -60,37 +57,20 @@ public final class LogbackConfigurer {
 
         for (LogAppenders appender : appendersSet) {
             switch (appender) {
-            case FILE:
-                logger.addAppender(rollingFileAppender(config, loggerContext));
-                break;
-
-            case SOCKET:
-                logger.addAppender(socketAppender(config, loggerContext));
-                break;
-
-            case CONSOLE:
-                logger.addAppender(consoleAppender(config, loggerContext));
-                break;
-
-            case HTTP:
-                logger.addAppender(httpAppender(config, loggerContext));
-                break;
-
-            case NONE:
-                logger.setLevel(Level.OFF);
-                break;
-
-            default:
-                throw new AuditLoggingException("Unknown appender " + appender);
+            case FILE -> logger.addAppender(rollingFileAppender(config, loggerContext));
+            case SOCKET -> logger.addAppender(socketAppender(config, loggerContext));
+            case CONSOLE -> logger.addAppender(consoleAppender(config, loggerContext));
+            case HTTP -> logger.addAppender(httpAppender(config, loggerContext));
+            case NONE -> logger.setLevel(Level.OFF);
+            default -> throw new AuditLoggingException("Unknown appender " + appender);
             }
         }
-
     }
 
     static Appender<ILoggingEvent> socketAppender(final AuditConfigurationMap config, final LoggerContext loggerContext) {
-        final String app = requireNonNull(AuditConfiguration.APPENDER_SOCKET_APPLICATION.getString(config),
+        final String app = requireNonNull(APPENDER_SOCKET_APPLICATION.getString(config),
                 "application must be set for logback socket appender");
-        final AbstractSocketAppender<ILoggingEvent> appender = new AbstractSocketAppender<ILoggingEvent>() {
+        final AbstractSocketAppender<ILoggingEvent> appender = new AbstractSocketAppender<>() {
 
             @Override
             protected void postProcessEvent(final ILoggingEvent event) {
@@ -120,8 +100,8 @@ public final class LogbackConfigurer {
                     copy.addMarker(e.getMarker());
                     copy.setMDCPropertyMap(mdc);
                     copy.setTimeStamp(e.getTimeStamp());
-                    if (ThrowableProxy.class.isInstance(e.getThrowableProxy())) {
-                        copy.setThrowableProxy(ThrowableProxy.class.cast(e.getThrowableProxy()));
+                    if (e.getThrowableProxy() instanceof ThrowableProxy throwableProxy) {
+                        copy.setThrowableProxy(throwableProxy);
                     }
                     if (copy.hasCallerData()) {
                         copy.setCallerData(e.getCallerData());
@@ -131,21 +111,22 @@ public final class LogbackConfigurer {
             }
         };
         appender.setContext(loggerContext);
-        appender.setName("auditSocketAppender");
-        appender.setRemoteHost(AuditConfiguration.APPENDER_SOCKET_HOST.getString(config));
-        appender.setPort(AuditConfiguration.APPENDER_SOCKET_PORT.getInteger(config));
+        appender.setName(LOG_AUDIT_SOCKET_APPENDER_NAME);
+        appender.setRemoteHost(APPENDER_SOCKET_HOST.getString(config));
+        appender.setPort(APPENDER_SOCKET_PORT.getInteger(config));
+
         appender.start();
         return appender;
     }
 
     static Appender<ILoggingEvent> rollingFileAppender(AuditConfigurationMap config, LoggerContext loggerContext) {
         final FlexibleWindowRollingPolicy rollingPolicy = new FlexibleWindowRollingPolicy();
-        rollingPolicy.setMaxBackup(AuditConfiguration.APPENDER_FILE_MAXBACKUP.getInteger(config));
-        rollingPolicy.setFileNamePattern(AuditConfiguration.APPENDER_FILE_PATH.getString(config) + ".%i");
+        rollingPolicy.setMaxBackup(APPENDER_FILE_MAXBACKUP.getInteger(config));
+        rollingPolicy.setFileNamePattern(APPENDER_FILE_PATH.getString(config) + ".%i");
         rollingPolicy.setContext(loggerContext);
 
         final SizeBasedTriggeringPolicy<ILoggingEvent> triggeringPolicy = new SizeBasedTriggeringPolicy<>();
-        triggeringPolicy.setMaxFileSize(new FileSize(AuditConfiguration.APPENDER_FILE_MAXSIZE.getLong(config)));
+        triggeringPolicy.setMaxFileSize(new FileSize(APPENDER_FILE_MAXSIZE.getLong(config)));
         triggeringPolicy.setContext(loggerContext);
 
         final RollingFileAppender<ILoggingEvent> appender = new RollingFileAppender<>();
@@ -156,7 +137,7 @@ public final class LogbackConfigurer {
         appender.setRollingPolicy(rollingPolicy);
         appender.setTriggeringPolicy(triggeringPolicy);
         appender.setEncoder(logbackEncoder(config, logstashLayout(config, loggerContext)));
-        appender.setFile(AuditConfiguration.APPENDER_FILE_PATH.getString(config));
+        appender.setFile(APPENDER_FILE_PATH.getString(config));
 
         rollingPolicy.setParent(appender);
 
@@ -168,10 +149,10 @@ public final class LogbackConfigurer {
     }
 
     static Appender<ILoggingEvent> consoleAppender(AuditConfigurationMap config, LoggerContext loggerContext) {
-        final LogTarget target = AuditConfiguration.APPENDER_CONSOLE_TARGET.getValue(config, LogTarget.class);
+        final LogTarget target = APPENDER_CONSOLE_TARGET.getValue(config, LogTarget.class);
 
         final PatternLayout layout = new PatternLayout();
-        layout.setPattern(AuditConfiguration.APPENDER_CONSOLE_PATTERN.getString(config));
+        layout.setPattern(APPENDER_CONSOLE_PATTERN.getString(config));
         layout.setContext(loggerContext);
         layout.start();
 
@@ -193,31 +174,25 @@ public final class LogbackConfigurer {
         appender.setName("auditHttpAppender");
         appender.setContext(loggerContext);
         appender.setLayout(logstashLayout(config, loggerContext));
-        appender.setUrl(AuditConfiguration.APPENDER_HTTP_URL.getString(config));
-        if (!AuditConfiguration.APPENDER_HTTP_USERNAME.getString(config).trim().isEmpty()) {
-            appender.setUsername(AuditConfiguration.APPENDER_HTTP_USERNAME.getString(config));
+        appender.setUrl(APPENDER_HTTP_URL.getString(config));
+        if (!APPENDER_HTTP_USERNAME.getString(config).trim().isEmpty()) {
+            appender.setUsername(APPENDER_HTTP_USERNAME.getString(config));
         }
-        if (!AuditConfiguration.APPENDER_HTTP_PASSWORD.getString(config).trim().isEmpty()) {
-            appender.setPassword(AuditConfiguration.APPENDER_HTTP_PASSWORD.getString(config));
+        if (!APPENDER_HTTP_PASSWORD.getString(config).trim().isEmpty()) {
+            appender.setPassword(APPENDER_HTTP_PASSWORD.getString(config));
         }
-        appender.setAsync(AuditConfiguration.APPENDER_HTTP_ASYNC.getBoolean(config));
+        appender.setAsync(APPENDER_HTTP_ASYNC.getBoolean(config));
 
-        appender.setConnectTimeout(AuditConfiguration.APPENDER_HTTP_CONNECT_TIMEOUT.getInteger(config));
-        appender.setReadTimeout(AuditConfiguration.APPENDER_HTTP_READ_TIMEOUT.getInteger(config));
-        appender.setEncoding(AuditConfiguration.ENCODING.getString(config));
+        appender.setConnectTimeout(APPENDER_HTTP_CONNECT_TIMEOUT.getInteger(config));
+        appender.setReadTimeout(APPENDER_HTTP_READ_TIMEOUT.getInteger(config));
+        appender.setEncoding(ENCODING.getString(config));
 
-        switch (AuditConfiguration.PROPAGATE_APPENDER_EXCEPTIONS.getValue(config, PropagateExceptions.class)) {
-        case ALL:
-            appender.setPropagateExceptions(true);
-            break;
-
-        case NONE:
-            appender.setPropagateExceptions(false);
-            break;
-
-        default:
-            throw new AuditLoggingException("Unknown propagate exception value: "
-                    + AuditConfiguration.PROPAGATE_APPENDER_EXCEPTIONS.getValue(config, PropagateExceptions.class));
+        switch (PROPAGATE_APPENDER_EXCEPTIONS.getValue(config, PropagateExceptions.class)) {
+        case ALL -> appender.setPropagateExceptions(true);
+        case NONE -> appender.setPropagateExceptions(false);
+        default -> throw new AuditLoggingException(
+                "Unknown propagate exception value: " + PROPAGATE_APPENDER_EXCEPTIONS.getValue(config,
+                        PropagateExceptions.class));
         }
 
         appender.start();
@@ -227,7 +202,7 @@ public final class LogbackConfigurer {
 
     static Encoder<ILoggingEvent> logbackEncoder(AuditConfigurationMap config, Layout<ILoggingEvent> layout) {
         final LayoutWrappingEncoder<ILoggingEvent> encoder = new LayoutWrappingEncoder<>();
-        encoder.setCharset(Charset.forName(AuditConfiguration.ENCODING.getString(config)));
+        encoder.setCharset(Charset.forName(ENCODING.getString(config)));
         encoder.setImmediateFlush(true);
         encoder.setLayout(layout);
         encoder.setContext(layout.getContext());
@@ -248,8 +223,8 @@ public final class LogbackConfigurer {
 
         LogbackJSONLayout layout = new LogbackJSONLayout();
 
-        layout.setLocationInfo(AuditConfiguration.LOCATION.getBoolean(config));
-        layout.setHostInfo(AuditConfiguration.HOST.getBoolean(config));
+        layout.setLocationInfo(LOCATION.getBoolean(config));
+        layout.setHostInfo(HOST.getBoolean(config));
         layout.setMetaFields(metaFields);
         layout.setAddEventUuid(false);
         layout.setContext(loggerContext);
