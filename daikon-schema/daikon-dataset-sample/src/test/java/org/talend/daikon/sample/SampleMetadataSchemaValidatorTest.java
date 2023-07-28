@@ -82,7 +82,7 @@ public class SampleMetadataSchemaValidatorTest {
             System.out.println("validationMessage = " + validationMessage);
         }
 
-        assertEquals(3, result.size());
+        assertEquals(2, result.size());
     }
 
     @Test
@@ -93,11 +93,12 @@ public class SampleMetadataSchemaValidatorTest {
                 SampleMetadata.class);
 
         assertNotNull(data);
-        assertEquals(3, data.getFields().size());
+        assertEquals(5, data.getFields().size());
         assertEquals(QualityStatus.INVALID, data.getFields().get(0).getQuality().getAggregated());
         assertEquals(1, data.getFields().get(0).getQuality().getDqRules().size());
         assertEquals(RuleQualityStatus.VALID, data.getFields().get(0).getQuality().getDqRules().get(0).getResult());
         assertEquals(1, data.getFields().get(2).getFields().size());
+        assertEquals(2, data.getFields().get(4).getItems().size());
         assertEquals(QualityStatus.EMPTY, data.getFields().get(2).getFields().get(0).getQuality().getDqType());
     }
 

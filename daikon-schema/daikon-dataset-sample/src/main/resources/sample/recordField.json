@@ -12,6 +12,12 @@
     "quality": {
       "$ref": "https://org.talend.daikon/record.field.quality.schema.json"
     },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "https://org.talend.daikon/record.field.schema.json"
+      }
+    },
     "fields": {
       "type": "array",
       "items": {
@@ -19,8 +25,6 @@
       }
     }
   },
-  "required": [
-    "name"
-  ]
+  "required": []
 }
 
