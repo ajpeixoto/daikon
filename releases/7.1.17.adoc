@@ -1,0 +1,26 @@
+= Daikon Release Notes (7.1.17) - 07/28/2023
+
+Thanks to @bjacobtalend, @wang wei, @Jérémy Hervy, @gleloup, @Fabien Abballe, @gabriel-cpereira
+
+== Fix
+- link:https://jira.talendforge.org/browse/TPGOV-2335[TPGOV-2335]: CLONE - Issues with Hierarchical for GET /v2/datasets/{datasetId}/sample-metadata (+data) endpoint (link:https://github.com/Talend/daikon/pull/1009[#1009])
+- link:https://jira.talendforge.org/browse/TDKN-349[TDKN-349]: Release fails because JIRA item doesn't exist (link:https://github.com/Talend/daikon/pull/995[#995])
+
+== Feature
+- link:https://jira.talendforge.org/browse/TPGOV-2071[TPGOV-2071]: Implement GET /v2/datasets/{datasetId}/sample-metadata (+data) endpoint (link:https://github.com/Talend/daikon/pull/981[#981])
+- link:https://jira.talendforge.org/browse/TPGOV-2071[TPGOV-2071]: Implement GET /v2/datasets/{datasetId}/sample-metadata (+data) endpoint (link:https://github.com/Talend/daikon/pull/979[#979])
+- link:https://jira.talendforge.org/browse/TPGOV-2071[TPGOV-2071]: Implement GET /v2/datasets/{datasetId}/sample-metadata (+data) endpoint (link:https://github.com/Talend/daikon/pull/973[#973])
+- link:https://jira.talendforge.org/browse/TPGOV-2111[TPGOV-2111]: Adequate serialization/deserialization of DatasetSchema's attribute originalFieldMetadata  (link:https://github.com/Talend/daikon/pull/967[#967])
+- link:https://jira.talendforge.org/browse/TPGOV-2098[TPGOV-2098]: [Daikon] Add a new deserializer on Daikon in order to handle the JDBCMetadata deserialization (link:https://github.com/Talend/daikon/pull/963[#963])
+
+== Work Item
+- link:https://jira.talendforge.org/browse/TDI-49492[TDI-49492]: Upgrade Avro to 1.11.x (link:https://github.com/Talend/daikon/pull/1003[#1003])
+- link:https://jira.talendforge.org/browse/TPSVC-20437[TPSVC-20437]: SAT Migration - Update daikon-spring-auth (link:https://github.com/Talend/daikon/pull/994[#994])
+- link:https://jira.talendforge.org/browse/TCKPROXY-47[TCKPROXY-47]: Fix issue with dependency nimbus.jose (link:https://github.com/Talend/daikon/pull/989[#989])
+- link:https://jira.talendforge.org/browse/TCKPROXY-47[TCKPROXY-47]: Fix issue with dependency nimbus.jose (link:https://github.com/Talend/daikon/pull/986[#986])
+- link:https://jira.talendforge.org/browse/TPGOV-2187[TPGOV-2187]: [Daikon] Update DatasetSchema object in order to handle nullable arrays (link:https://github.com/Talend/daikon/pull/985[#985])
+- link:https://jira.talendforge.org/browse/TPGOV-2187[TPGOV-2187]: [Daikon] Update DatasetSchema object in order to handle nullable arrays (link:https://github.com/Talend/daikon/pull/982[#982])
+
+== Other
+- fix(TPGOV-2168): Fix schema serialization error (#976) (link:https://github.com/Talend/daikon/pull/976[#976])
+- Bjacob/tpgov 2071 fix test format  (link:https://github.com/Talend/daikon/pull/980[#980])
