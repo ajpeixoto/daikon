@@ -31,6 +31,54 @@
           }
         }
       ]
+    },
+    {
+      "name": "phones",
+      "quality": {
+        "aggregated": "INVALID",
+        "dqType": "EMPTY"
+      }
+    },
+    {
+      "name": "history",
+      "items": [
+        {
+          "fields": [
+            {
+              "name": "date",
+              "quality": {
+                "aggregated": "INVALID",
+                "dqType": "EMPTY"
+              }
+            },
+            {
+              "name": "reason",
+              "quality": {
+                "aggregated": "INVALID",
+                "dqType": "EMPTY"
+              }
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "name": "date",
+              "quality": {
+                "aggregated": "INVALID",
+                "dqType": "EMPTY"
+              }
+            },
+            {
+              "name": "reason",
+              "quality": {
+                "aggregated": "INVALID",
+                "dqType": "EMPTY"
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

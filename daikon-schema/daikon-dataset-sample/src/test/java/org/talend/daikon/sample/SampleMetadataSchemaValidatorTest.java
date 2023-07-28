@@ -89,7 +89,7 @@ public class SampleMetadataSchemaValidatorTest {
         var recordFieldQuality = new RecordFieldQuality(QualityStatus.VALID,
                 QualityStatus.EMPTY, List.of(new DqRuleQuality("123",
                 RuleQualityStatus.VALID)));
-        var field = new RecordField("price", recordFieldQuality, List.of());
+        var field = new RecordField("price", recordFieldQuality);
 
         var sampleMetadata = new SampleMetadata(List.of(field));
         var expectedSampleMetadata = """
@@ -107,6 +107,7 @@ public class SampleMetadataSchemaValidatorTest {
                           }
                         ]
                       },
+                      "items": [],
                       "fields": []
                     }
                   ]
@@ -125,11 +126,12 @@ public class SampleMetadataSchemaValidatorTest {
                 SampleMetadata.class);
 
         assertNotNull(data);
-        assertEquals(3, data.fields().size());
+        assertEquals(5, data.fields().size());
         assertEquals(QualityStatus.INVALID, data.fields().get(0).quality().aggregated());
         assertEquals(1, data.fields().get(0).quality().dqRules().size());
         assertEquals(RuleQualityStatus.VALID, data.fields().get(0).quality().dqRules().get(0).result());
         assertEquals(1, data.fields().get(2).fields().size());
+        assertEquals(2, data.fields().get(4).items().size());
         assertEquals(QualityStatus.EMPTY, data.fields().get(2).fields().get(0).quality().dqType());
     }
 
@@ -147,7 +149,7 @@ public class SampleMetadataSchemaValidatorTest {
             System.out.println("validationMessage = " + validationMessage);
         }
 
-        assertEquals(3, result.size());
+        assertEquals(2, result.size());
     }
 
 }
