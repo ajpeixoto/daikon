@@ -27,6 +27,7 @@ import org.talend.daikon.spring.auth.common.model.userdetails.UserDetailsConvert
 import org.talend.daikon.spring.auth.interceptor.IpAllowListHeaderInterceptor;
 import org.talend.daikon.spring.auth.introspection.CachedOpaqueTokenIntrospector;
 import org.talend.daikon.spring.auth.introspection.factory.UserDetailsIntrospectorFactory;
+import org.talend.daikon.spring.auth.model.token.IamBearerTokenAuthentication;
 import org.talend.daikon.spring.auth.provider.Auth0AuthenticationProvider;
 
 public class AuthenticationManagerFactory {
@@ -62,7 +63,7 @@ public class AuthenticationManagerFactory {
             OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, jwt.getTokenValue(),
                     jwt.getIssuedAt(), jwt.getExpiresAt());
             AuthUserDetails principal = UserDetailsConverter.convert(jwt.getClaims());
-            return new BearerTokenAuthentication(principal, accessToken, principal.getAuthorities());
+            return new IamBearerTokenAuthentication(principal, accessToken, principal.getAuthorities());
         };
     }
 
