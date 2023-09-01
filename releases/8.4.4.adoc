@@ -1,0 +1,6 @@
+= Daikon Release Notes (8.4.4) - 09/01/2023
+
+Thanks to @Laurent Meunier
+
+== Other
+- fix(TPRUN-6518): tenantId for sat token (#1014) (link:https://github.com/Talend/daikon/pull/1014[#1014])
