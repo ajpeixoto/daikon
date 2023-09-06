@@ -86,6 +86,16 @@ public class DeserializerDatasetSchemaTest {
     }
 
     @Test
+    public void givenValidDatasetInputWithNullType_thenNoError() throws IOException {
+
+        DatasetSchema data = OBJECT_MAPPER
+                .readValue(DatasetSchemaValidatorTest.class.getResourceAsStream("/dataset_nullValue.json"), DatasetSchema.class);
+
+        assertNotNull(data);
+        assertEquals(2, data.getFields().get(0).getType().size());
+    }
+
+    @Test
     public void givenOriginalFieldMetadataAsNull_whenDeserialize_thenNoError() throws IOException {
         DatasetSchema data = OBJECT_MAPPER.readValue(
                 DatasetSchemaValidatorTest.class.getResourceAsStream("/dataset_valid_JDBC_partial_metadata.json"),

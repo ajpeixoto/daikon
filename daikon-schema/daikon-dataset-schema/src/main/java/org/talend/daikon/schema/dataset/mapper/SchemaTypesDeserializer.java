@@ -51,7 +51,7 @@ public class SchemaTypesDeserializer extends JsonDeserializer<List<AbstractDatas
     private AbstractDatasetFieldTypeSchema deserializeItem(final JsonNode item) throws JsonProcessingException {
         if (item.isObject()) {
             return internalMapper.treeToValue(item, AbstractDatasetFieldTypeSchema.class);
-        } else if (item.isTextual() && item.asText().equals("null")) {
+        } else if (item.asText().equals("null")) {
             return null;
         }
 

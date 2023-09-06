@@ -1,0 +1,93 @@
+{
+  "type": "record",
+  "name": "Record",
+  "fields": [
+    {
+      "name": "TITLE",
+      "type": [
+        null,
+        {
+          "type": "string",
+          "dqTypeId": "TITLE",
+          "dqNativeType": "STRING",
+          "isForced": false,
+          "isNativeForced": false,
+          "dqSemanticTypeDistribution": {
+            "total": 10,
+            "matchings": [
+              {
+                "score": 80.1,
+                "total": 8,
+                "name": "TITLE",
+                "id": "TITLE"
+              },
+              {
+                "score": 40,
+                "total": 4,
+                "name": "CIVILITY",
+                "id": "CIVILITY"
+              }
+            ]
+          },
+          "dqNativeTypeDistribution": {
+            "total": 10,
+            "matchings": [
+              {
+                "score": 80,
+                "total": 8,
+                "id": "STRING"
+              },
+              {
+                "score": 20,
+                "total": 2,
+                "id": "EMPTY"
+              }
+            ]
+          },
+          "dqQualityAggregate": {
+            "0": 2,
+            "1": 8,
+            "total": 10
+          }
+        }
+      ]
+    },
+    {
+      "name": "AGE",
+      "type": [
+        {
+          "type": "string",
+          "dqTypeId": "",
+          "dqNativeType": "INTEGER",
+          "isForced": false,
+          "isNativeForced": false,
+          "dqSemanticTypeDistribution": {
+            "total": 10,
+            "matchings": []
+          },
+          "dqNativeTypeDistribution": {
+            "total": 10,
+            "matchings": [
+              {
+                "score": 90,
+                "total": 9,
+                "id": "INTEGER"
+              },
+              {
+                "score": 10,
+                "total": 1,
+                "id": "EMPTY"
+              }
+            ]
+          },
+          "dqQualityAggregate": {
+            "0": 1,
+            "1": 9,
+            "total": 10
+          }
+        },
+        null
+      ]
+    }
+  ]
+}
