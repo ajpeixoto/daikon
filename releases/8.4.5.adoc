@@ -1,0 +1,6 @@
+= Daikon Release Notes (8.4.5) - 09/06/2023
+
+Thanks to @Fabien Abballe
+
+== Other
+- chore(): fix null value deserialization on dataset schema  (link:https://github.com/Talend/daikon/pull/1015[#1015])
