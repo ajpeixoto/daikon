@@ -68,11 +68,11 @@
         <okhttp.version>4.10.0</okhttp.version>
         <pax-url-aether.version>2.6.12</pax-url-aether.version>
         <reactor-core.version>3.5.4</reactor-core.version>
-        <rest-assured.version>5.3.0</rest-assured.version>
+        <rest-assured.version>5.3.2</rest-assured.version>
         <slf4j-log4j12.version>2.0.7</slf4j-log4j12.version>
         <slf4j.version>2.0.6</slf4j.version>
         <snakeyaml.version>2.0</snakeyaml.version>
-        <spring-boot.version>3.1.2</spring-boot.version>
+        <spring-boot.version>3.1.4</spring-boot.version>
         <spring-cloud-aws.version>3.0.0-RC1</spring-cloud-aws.version>
         <spring-cloud-dependencies.version>2022.0.3</spring-cloud-dependencies.version>
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
