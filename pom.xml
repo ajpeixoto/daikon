@@ -122,7 +122,7 @@
         <testcontainers.version>1.17.6</testcontainers.version>
 
         <jakarta.inject-api.version>2.0.1</jakarta.inject-api.version>
-        <kafka-confluent>7.3.3</kafka-confluent>
+        <kafka-confluent>7.4.0</kafka-confluent>
         <everit-json-schema.version>1.14.2</everit-json-schema.version>
 
         <jakarta.ws.rs-api.version>3.1.0</jakarta.ws.rs-api.version>
