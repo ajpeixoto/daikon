@@ -1,0 +1,8 @@
+= Daikon Release Notes (8.4.6) - 09/28/2023
+
+Thanks to @e-herrmann, @Colm O hEigeartaigh, @dependabot[bot]
+
+== Other
+- fix(TPRUN-6588): bump kafka confluent to 7.4.0 (#1021) (link:https://github.com/Talend/daikon/pull/1021[#1021])
+- Updating Spring Boot to 3.1.4  (link:https://github.com/Talend/daikon/pull/1019[#1019])
+- chore(deps): bump org.apache.commons:commons-compress from 1.22 to 1.24.0  (link:https://github.com/Talend/daikon/pull/1016[#1016])
