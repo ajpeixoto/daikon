@@ -23,11 +23,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-configuration2</artifactId>
         </dependency>
-        <!-- Can be removed when commons-configuration2 2.8.1+ is released -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.talend.daikon</groupId>
             <artifactId>daikon-exception</artifactId>
