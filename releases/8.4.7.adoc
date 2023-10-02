@@ -1,0 +1,8 @@
+= Daikon Release Notes (8.4.7) - 10/02/2023
+
+Thanks to @dependabot[bot], @Colm O hEigeartaigh, @Gabriel Marquet
+
+== Other
+- chore(deps): bump kakfa-clients to 3.5.1 fixing CVE-2023-34455 CVE-2023-34454 CVE-2023-34453 (#1022) (link:https://github.com/Talend/daikon/pull/1022[#1022])
+- chore(deps): bump org.eclipse.jgit:org.eclipse.jgit from 6.5.0.202303070854-r to 6.6.1.202309021850-r in /daikon-documentation  (link:https://github.com/Talend/daikon/pull/1017[#1017])
+- updating Commons Configuration to 2.9.0  (link:https://github.com/Talend/daikon/pull/1018[#1018])
