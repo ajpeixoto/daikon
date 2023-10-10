@@ -86,16 +86,19 @@ public class S3ResourceResolver extends AbstractResourceResolver {
         final S3DeletableResource resource = new S3DeletableResource(writableResource, s3Client, filename, bucketName,
                 bucketRoot);
         switch (authentication) {
-        case S3ContentServiceConfiguration.MINIO_AUTHENTICATION:
-        case S3ContentServiceConfiguration.CUSTOM_AUTHENTICATION:
-            final String host = environment.getProperty(S3ContentServiceConfiguration.S3_ENDPOINT_URL);
-            final String s3Location = builder(bucketName) //
-                    .append(bucketRoot) //
-                    .append(toS3Location(filename)) //
-                    .build();
-            return new FixedURLS3Resource(host, s3Location, resource);
-        default:
-            return resource;
+            case S3ContentServiceConfiguration.MINIO_AUTHENTICATION, S3ContentServiceConfiguration.CUSTOM_AUTHENTICATION -> {
+                final String host = environment.getProperty(S3ContentServiceConfiguration.S3_ENDPOINT_URL);
+                final String s3Location;
+                if (writableResource instanceof S3Resource) {
+                    s3Location = builder(bucketName).append(toS3Location(filename)).build();
+                } else {
+                    s3Location = builder(bucketName).append(bucketRoot).append(toS3Location(filename)).build();
+                }
+                return new FixedURLS3Resource(host, s3Location, resource);
+            }
+            default -> {
+                return resource;
+            }
         }
     }
 }
