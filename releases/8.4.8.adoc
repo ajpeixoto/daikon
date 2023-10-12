@@ -1,0 +1,6 @@
+= Daikon Release Notes (8.4.8) - 10/10/2023
+
+Thanks to @pgautier83
+
+== Other
+- fix(TDP-12519): Update conversion for S3ResourceResolver (#1028) (link:https://github.com/Talend/daikon/pull/1028[#1028])
