@@ -21,7 +21,7 @@ public class MdcEcsMapperTest {
 
     @Test
     public void test() {
-        assertThat(MdcEcsMapper.getMapping().keySet().size(), is(2));
+        assertThat(MdcEcsMapper.getMapping().keySet().size(), is(3));
         mdcEcsMap.forEach((k, v) -> assertThat(MdcEcsMapper.map(k), is(v)));
         assertThat(MdcEcsMapper.map(UNKNOWN_FIELD), is(UNKNOWN_FIELD));
     }

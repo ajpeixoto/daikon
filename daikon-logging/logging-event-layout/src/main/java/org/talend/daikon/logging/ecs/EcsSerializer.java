@@ -73,7 +73,13 @@ public class EcsSerializer {
                 .map(mdcEntry -> new AbstractMap.SimpleEntry<>(
                         metaFields.getOrDefault(mdcEntry.getKey(), (legacyMode ? LEGACY_MDC_PREFIX : "") + mdcEntry.getKey()),
                         mdcEntry.getValue()))
-                .filter(entry -> entry.getValue() != null).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                .filter(entry -> entry.getValue() != null).distinct() // filter out exact entry duplicates
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (duplicateValue1, duplicateValue2) -> {
+                    System.err.println(("EcsSerializer.serializeMDC(): duplicate key with values '%s' and '%s'. "
+                            + "Value '%s' is used to produce log. Full MDC map: %s").formatted(duplicateValue1, duplicateValue2,
+                                    duplicateValue1, mdcPropertyMap));
+                    return duplicateValue1;
+                }));
 
         final List<String> mdcNumericFields = filteredMdc.keySet().stream().filter(EcsFields::isNumber)
                 .collect(Collectors.toList());

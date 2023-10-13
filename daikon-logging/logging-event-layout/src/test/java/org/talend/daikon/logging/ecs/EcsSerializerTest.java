@@ -59,6 +59,20 @@ public class EcsSerializerTest {
     }
 
     @Test
+    public void testSerializeDuplicateField() {
+        final StringBuilder builder = new StringBuilder();
+        final Map<String, String> mdc = new HashMap<>();
+        mdc.put("traceId", "123");
+        mdc.put("trace.id", "124");
+
+        EcsSerializer.serializeMDC(builder, mdc);
+        final String actual = builder.toString();
+
+        assertThat(actual, containsString("\"trace.id\":\"123\""));
+        assertThat(actual, not(containsString("traceId")));
+    }
+
+    @Test
     public void testSerializeMdcWithNumbers() {
         final StringBuilder builder = new StringBuilder();
         final Map<String, String> mdc = new HashMap<>();
