@@ -8,6 +8,9 @@
     </parent>
     <artifactId>messages-demo</artifactId>
     <name>messages-demo</name>
+    <properties>
+        <kafka-avro-serializer.version>5.5.1</kafka-avro-serializer.version>
+    </properties>
     <packaging>pom</packaging>
 
     <modules>
@@ -43,7 +46,7 @@
                 <groupId>io.confluent</groupId>
                 <artifactId>kafka-avro-serializer</artifactId>
                 <!-- For Confluent Platform 5.5.1 -->
-                <version>5.5.1</version>
+                <version>${kafka-avro-serializer.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.apache.avro</groupId>

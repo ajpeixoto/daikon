@@ -28,13 +28,16 @@
         </talend_snapshots_deployment>
         <pushChanges>false</pushChanges>
 
-        <assertj-core.version>3.24.2</assertj-core.version>
-        <aspectjweaver.version>1.9.19</aspectjweaver.version>
-        <asm.version>9.4</asm.version>
-        <avro.version>1.11.1</avro.version>
         <amazon.awssdk.bom.version>2.20.27</amazon.awssdk.bom.version>
+        <antlr.version>4.12.0</antlr.version>
+        <asm.version>9.4</asm.version>
+        <aspectjweaver.version>1.9.19</aspectjweaver.version>
+        <assertj-core.version>3.24.2</assertj-core.version>
+        <avro.version>1.11.1</avro.version>
+        <awaitility.version>4.2.0</awaitility.version>
         <bcprov.version>1.70</bcprov.version>
         <bnd.version>3.0.0</bnd.version>
+        <cloudevents.version>2.4.2</cloudevents.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-codec.version>1.15</commons-codec.version>
         <commons-compress.version>1.24.0</commons-compress.version>
@@ -42,29 +45,46 @@
         <commons-io.version>2.11.0</commons-io.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-text.version>1.10.0</commons-text.version>
+        <commons-validator.version>1.7</commons-validator.version>
         <easymock.version>5.1.0</easymock.version>
-        <elastic.ecs.logging.version>1.5.0</elastic.ecs.logging.version>
+        <ecs-logging-core.version>1.5.0</ecs-logging-core.version>
+        <everit-json-schema.version>1.14.2</everit-json-schema.version>
         <feign-core.version>8.18.0</feign-core.version>
+        <graalvm.js.version>22.3.1</graalvm.js.version>
         <guava.version>32.1.1-jre</guava.version>
         <hamcrest-all.version>1.3</hamcrest-all.version>
         <hamcrest-json.version>0.2</hamcrest-json.version>
+        <hamcrest.version>2.2</hamcrest.version>
         <jackson.1x.version>1.9.16-TALEND</jackson.1x.version>
         <jackson.version>2.14.1</jackson.version>
-        <javax.inject.version>1</javax.inject.version>
+        <jakarta.annotation-api.version>2.1.1</jakarta.annotation-api.version>
+        <jakarta.inject-api.version>2.0.1</jakarta.inject-api.version>
         <jakarta.servlet-api.version>6.0.0</jakarta.servlet-api.version>
+        <jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
+        <jakarta.ws.rs-api.version>3.1.0</jakarta.ws.rs-api.version>
+        <javax.inject.version>1</javax.inject.version>
+        <jersey-common.version>3.1.2</jersey-common.version>
         <jettison.version>1.5.4</jettison.version>
+        <json-io.version>4.14.0</json-io.version>
         <json-path-assert.version>2.7.0</json-path-assert.version>
+        <json-schema-validator.version>1.0.78</json-schema-validator.version>
         <json-smart.version>2.4.9</json-smart.version>
+        <json.version>20231013</json.version>
         <jsonassert.version>1.5.1</jsonassert.version>
         <jsr305.version>3.0.2</jsr305.version>
+        <junit-jupiter.version>5.9.2</junit-jupiter.version>
+        <junit-pioneer.version>2.0.0</junit-pioneer.version>
         <kafka-clients.version>3.5.1</kafka-clients.version>
+        <kafka-confluent>7.4.0</kafka-confluent>
         <log4j2.version>2.20.0</log4j2.version>
+        <logback-access-spring-boot-starter.version>3.4.6</logback-access-spring-boot-starter.version>
         <logback.version>1.4.8</logback.version>
         <lombok.version>1.18.26</lombok.version>
+        <maven-javadoc-_i18n.version>3.0.1</maven-javadoc-_i18n.version>
         <mockito-core.version>5.2.0</mockito-core.version>
         <mongo-java-server.version>1.43.0</mongo-java-server.version>
-        <nimbusds.version>10.7</nimbusds.version>
         <nimbus-jose-jwt.version>9.31</nimbus-jose-jwt.version>
+        <nimbusds.version>10.7</nimbusds.version>
         <okhttp.version>4.10.0</okhttp.version>
         <pax-url-aether.version>2.6.12</pax-url-aether.version>
         <reactor-core.version>3.5.4</reactor-core.version>
@@ -72,61 +92,64 @@
         <slf4j-log4j12.version>2.0.7</slf4j-log4j12.version>
         <slf4j.version>2.0.6</slf4j.version>
         <snakeyaml.version>2.0</snakeyaml.version>
+        <spring-boot-dependencies.version>3.1.2</spring-boot-dependencies.version>
         <spring-boot.version>3.1.4</spring-boot.version>
         <spring-cloud-aws.version>3.0.0-RC1</spring-cloud-aws.version>
         <spring-cloud-dependencies.version>2022.0.3</spring-cloud-dependencies.version>
-        <junit-jupiter.version>5.9.2</junit-jupiter.version>
-        <json-schema-validator.version>1.0.78</json-schema-validator.version>
-        <junit-pioneer.version>2.0.0</junit-pioneer.version>
-        <commons-validator.version>1.7</commons-validator.version>
-        <awaitility.version>4.2.0</awaitility.version>
+        <testcontainers.version>1.17.6</testcontainers.version>
         <zelib.version>0.0.1</zelib.version>
-        <graalvm.js.version>22.3.1</graalvm.js.version>
-        <json-io.version>4.14.0</json-io.version>
-        <logback-access-spring-boot-starter.version>3.4.6</logback-access-spring-boot-starter.version>
-        <cloudevents.version>2.4.2</cloudevents.version>
-        <antlr.version>4.12.0</antlr.version>
-        <hamcrest.version>2.2</hamcrest.version>
-        <jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
-        <jakarta.annotation-api.version>2.1.1</jakarta.annotation-api.version>
 
         <!-- Front -->
         <node.version>v14.18.0</node.version>
         <yarn.version>v1.22.10</yarn.version>
 
         <!-- internal talend version -->
-        <talend-platform-sdk.version>3.7.0</talend-platform-sdk.version>
         <maplang.version>1.7.0</maplang.version>
+        <talend-platform-sdk.version>3.7.0</talend-platform-sdk.version>
 
         <!-- Scala -->
-        <scala-version>2.13.10</scala-version>
-        <scala-plugin-version>3.3.2</scala-plugin-version>
-        <scala-binary-version>2.13</scala-binary-version>
-        <play2-version>2.8.16</play2-version>
         <akka-version>2.6.19</akka-version>
-        <slick-version>3.3.2</slick-version>
-        <scalatest-junit-runner-version>0.1.10</scalatest-junit-runner-version>
-        <play2-maven-plugin.version>1.0.0-rc4</play2-maven-plugin.version>
-        <sbt-compiler.plugin.version>1.0.0</sbt-compiler.plugin.version>
-        <silhouette-version>7.0.0</silhouette-version>
-        <scalatest_2.13.version>3.2.11</scalatest_2.13.version>
         <guice-version>4.2.11</guice-version>
+        <play2-maven-plugin.version>1.0.0-rc4</play2-maven-plugin.version>
+        <play2-version>2.8.16</play2-version>
         <s3mock_2.13.version>0.2.6</s3mock_2.13.version>
+        <sbt-compiler.plugin.version>1.0.0</sbt-compiler.plugin.version>
+        <scala-binary-version>2.13</scala-binary-version>
+        <scala-plugin-version>3.3.2</scala-plugin-version>
+        <scalatest-junit-runner-version>0.1.10</scalatest-junit-runner-version>
+        <scalatest_2.13.version>3.2.11</scalatest_2.13.version>
+        <silhouette-version>7.0.0</silhouette-version>
+        <slick-version>3.3.2</slick-version>
+        <scala-version>2.13.10</scala-version>
 
         <!-- plugin -->
-        <download.maven.plugin.version>1.6.0</download.maven.plugin.version>
-        <properties.maven.plugin.version>1.0.0</properties.maven.plugin.version>
-        <yaml.codegen.maven.plugin.version>0.0.6</yaml.codegen.maven.plugin.version>
-        <maven.enforcer.plugin.version>3.0.0</maven.enforcer.plugin.version>
-
-        <testcontainers.version>1.17.6</testcontainers.version>
-
-        <jakarta.inject-api.version>2.0.1</jakarta.inject-api.version>
-        <kafka-confluent>7.4.0</kafka-confluent>
-        <everit-json-schema.version>1.14.2</everit-json-schema.version>
-
-        <jakarta.ws.rs-api.version>3.1.0</jakarta.ws.rs-api.version>
-        <json.version>20231013</json.version>
+        <!-- When suffixed *_documentation -> lock down plugins versions to avoid using Maven defaults -->
+        <download-maven-plugin.version>1.6.0</download-maven-plugin.version>
+        <formatter-maven-plugin.version>2.8.0</formatter-maven-plugin.version>
+        <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+        <java-formatter.version>0.1.0</java-formatter.version>
+        <maven-bundle-plugin.version>3.5.0</maven-bundle-plugin.version>
+        <maven-clean-plugin_documentation.version>3.1.0</maven-clean-plugin_documentation.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-deploy-plugin_documentation.version>2.8.2</maven-deploy-plugin_documentation.version>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <maven-install-plugin_documentation.version>2.5.2</maven-install-plugin_documentation.version>
+        <maven-invoker-plugin_documentation.version>3.1.0</maven-invoker-plugin_documentation.version>
+        <maven-jar-plugin_documentation.version>3.0.2</maven-jar-plugin_documentation.version>
+        <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
+        <maven-plugin-plugin.version>3.8.1</maven-plugin-plugin.version>
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+        <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+        <maven-resources-plugin_documentation.version>3.0.2</maven-resources-plugin_documentation.version>
+        <maven-scm-plugin.version>1.9.4</maven-scm-plugin.version>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+        <maven-source-plugin_i18n.version>3.0.1</maven-source-plugin_i18n.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+        <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
+        <yaml-codegen-maven.version>0.0.6</yaml-codegen-maven.version>
     </properties>
     <modules>
         <module>daikon</module>
@@ -440,7 +463,7 @@
             <dependency>
                 <groupId>co.elastic.logging</groupId>
                 <artifactId>ecs-logging-core</artifactId>
-                <version>${elastic.ecs.logging.version}</version>
+                <version>${ecs-logging-core.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.cedarsoftware</groupId>
@@ -706,7 +729,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>${maven.enforcer.plugin.version}</version>
+                    <version>${maven-enforcer-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>enforce-maven</id>
@@ -739,7 +762,7 @@
                 <plugin>
                     <groupId>net.revelc.code.formatter</groupId>
                     <artifactId>formatter-maven-plugin</artifactId>
-                    <version>2.8.0</version>
+                    <version>${formatter-maven-plugin.version}</version>
                     <configuration>
                         <configFile>talend_java_eclipse_formatter.xml</configFile>
                         <lineEnding>LF</lineEnding>
@@ -748,29 +771,29 @@
                         <dependency>
                             <groupId>org.talend.tools</groupId>
                             <artifactId>java-formatter</artifactId>
-                            <version>0.1.0</version>
+                            <version>${java-formatter.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.2</version>
+                    <version>${maven-surefire-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
+                    <version>${maven-compiler-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>${maven-source-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>3.5.0</version>
+                    <version>${maven-bundle-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -782,7 +805,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version>
+                <version>${jacoco-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
@@ -814,7 +837,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-scm-plugin</artifactId>
-                <version>1.9.4</version>
+                <version>${maven-scm-plugin.version}</version>
                 <configuration>
                     <connectionUrl>scm:git:https://github.com/Talend/daikon.git</connectionUrl>
                     <tag>${project.artifactId}-${project.version}</tag>
@@ -823,7 +846,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <failOnError>false</failOnError>
                 </configuration>
@@ -842,7 +865,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
+                <version>${maven-release-plugin.version}</version>
                 <configuration>
                     <pushChanges>${pushChanges}</pushChanges>
                     <scmCommentPrefix xml:space="preserve">release: </scmCommentPrefix>

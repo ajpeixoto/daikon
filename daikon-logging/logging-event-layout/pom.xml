@@ -112,7 +112,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>properties-maven-plugin</artifactId>
-				<version>${properties.maven.plugin.version}</version>
+				<version>${properties-maven-plugin.version}</version>
 				<executions>
 					<execution>
 						<phase>initialize</phase>
@@ -131,7 +131,7 @@
 			<plugin>
 				<groupId>com.googlecode.maven-download-plugin</groupId>
 				<artifactId>download-maven-plugin</artifactId>
-				<version>${download.maven.plugin.version}</version>
+				<version>${download-maven-plugin.version}</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
@@ -150,7 +150,7 @@
 			<plugin>
 				<groupId>com.github.vboxnick</groupId>
 				<artifactId>yaml-codegen-maven</artifactId>
-				<version>${yaml.codegen.maven.plugin.version}</version>
+				<version>${yaml-codegen-maven.version}</version>
 				<configuration>
 					<models>
 						<model>
