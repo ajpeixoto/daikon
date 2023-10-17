@@ -126,6 +126,7 @@
         <everit-json-schema.version>1.14.2</everit-json-schema.version>
 
         <jakarta.ws.rs-api.version>3.1.0</jakarta.ws.rs-api.version>
+        <json.version>20231013</json.version>
     </properties>
     <modules>
         <module>daikon</module>
@@ -366,6 +367,19 @@
                 <groupId>com.github.erosb</groupId>
                 <artifactId>everit-json-schema</artifactId>
                 <version>${everit-json-schema.version}</version>
+            </dependency>
+            <!-- TPRUN-6861 CVE-2023-5072 This is to force library version to a safe one. To be removed when all libraries that includes it are updated to the below version or newest
+                Known dependency tree leading to faulty version
+                org.talend.daikon daikon-cloudevent-kafka 8.4.8
+                    io.confluent kafka-json-schema-serializer 7.4.0
+                    io.confluent kafka-json-schema-provider 7.4.0
+                    com.github.erosb everit-json-schema 1.14.2
+                    org.json json 20230227
+            -->
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>${json.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.confluent</groupId>
