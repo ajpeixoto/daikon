@@ -1,0 +1,6 @@
+= Daikon Release Notes (8.4.10) - 10/19/2023
+
+Thanks to @benfonty
+
+== Other
+- Bfonty/tpsvc 20782 CVE fix  (link:https://github.com/Talend/daikon/pull/1036[#1036])
