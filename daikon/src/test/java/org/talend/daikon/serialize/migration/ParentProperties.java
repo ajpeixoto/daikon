@@ -25,11 +25,11 @@ public class ParentProperties extends PropertiesImpl implements SerializeSetVers
 
     private static final long serialVersionUID = -2970103646514440665L;
 
-    public final Property<String> versionZeroProp = newString("versionZeroProp");
+    public Property<String> versionZeroProp = newString("versionZeroProp");
 
-    public final ChildProperties versionZeroNestedProp = new ChildProperties("versionZeroNestedProp");
+    public ChildProperties versionZeroNestedProp = new ChildProperties("versionZeroNestedProp");
 
-    public final Property<String> versionOneProp = newString("versionOneProp");
+    public Property<String> versionOneProp = newString("versionOneProp");
 
     public ParentProperties(String name) {
         super(name);

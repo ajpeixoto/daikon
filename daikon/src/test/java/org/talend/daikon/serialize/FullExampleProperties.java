@@ -55,67 +55,67 @@ public class FullExampleProperties extends PropertiesImpl {
     private static final String POPUP_FORM_NAME = "popup";
 
     /** use the default widget for this String type */
-    public final Property<String> stringProp = newString("stringProp", "initialValue");
+    public Property<String> stringProp = newString("stringProp", "initialValue");
 
     /** this shall hide stringProp widget according to it value. */
-    public final Property<Boolean> hideStringPropProp = newBoolean("hideStringPropProp", false);
+    public Property<Boolean> hideStringPropProp = newBoolean("hideStringPropProp", false);
 
     /**
      * property to check the {@link WidgetType#NAME_SELECTION_AREA} and {@link WidgetType#NAME_SELECTION_REFERENCE}
      * widgets.
      */
-    public final Property<String> multipleSelectionProp = newProperty("multipleSelectionProp");
+    public Property<String> multipleSelectionProp = newProperty("multipleSelectionProp");
 
     /**
      * property to check the {@link Widget#PLACEHOLDER_WIDGET_CONF}.
      */
-    public final Property<String> stringWithPlaceholder = newProperty("stringWithPlaceholder");
+    public Property<String> stringWithPlaceholder = newProperty("stringWithPlaceholder");
 
     /** checking {@link WidgetType#BUTTON} */
-    public final PresentationItem showNewForm = new PresentationItem("showNewForm");
+    public PresentationItem showNewForm = new PresentationItem("showNewForm");
 
     /** checking {@link WidgetType#TABLE} */
-    public final TableProperties tableProp = new TableProperties("tableProp");
+    public TableProperties tableProp = new TableProperties("tableProp");
 
     // TODO some Component Reference widget use case.
     /** reuse common properties */
-    public final CommonProperties commonProp = new CommonProperties("commonProp");
+    public CommonProperties commonProp = new CommonProperties("commonProp");
 
     /** checking {@link WidgetType#FILE} */
-    public final Property<String> filepathProp = newString("filepathProp");
+    public Property<String> filepathProp = newString("filepathProp");
 
     /** checking {@link WidgetType#HIDDEN_TEXT} */
-    public final Property<String> hiddenTextProp = newString("hiddenTextProp");
+    public Property<String> hiddenTextProp = newString("hiddenTextProp");
 
     /** use the default widget for this Integer type */
-    public final Property<Integer> integerProp = newInteger("integerProp").setRequired();
+    public Property<Integer> integerProp = newInteger("integerProp").setRequired();
 
-    public final Property<Long> longProp = newProperty(Long.class, "longProp");
+    public Property<Long> longProp = newProperty(Long.class, "longProp");
 
     /** use the default widget for this Date type */
-    public final Property<Date> dateProp = newDate("dateProp").setRequired();
+    public Property<Date> dateProp = newDate("dateProp").setRequired();
 
     /** checking {@link WidgetType#TEXT_AREA} */
-    public final Property<String> textareaProp = newString("textareaProp");
+    public Property<String> textareaProp = newString("textareaProp");
 
     /** checking {@link WidgetType#RADIO} */
-    public final Property<String> radioProp = newString("radioProp");
+    public Property<String> radioProp = newString("radioProp");
 
     /** checking {@link WidgetType#SELECT} */
-    public final Property<String> selectProp = newString("selectProp");
+    public Property<String> selectProp = newString("selectProp");
 
     /** checking {@link WidgetType#DATALIST} */
-    public final Property<String> datalistProp = newString("datalistProp");
+    public Property<String> datalistProp = newString("datalistProp");
 
     /**
      * uses 2 widgets, {@link WidgetType#SCHEMA_EDITOR} in the Main form and {@link WidgetType#SCHEMA_REFERENCE} on the
      * REFERENCE form
      */
-    public final Property<Schema> schema = newSchema("schema"); //$NON-NLS-1$
+    public Property<Schema> schema = newSchema("schema"); //$NON-NLS-1$
 
-    public final PresentationItem validateAllCallbackCalled = new PresentationItem("validateAllCallbackCalled");
+    public PresentationItem validateAllCallbackCalled = new PresentationItem("validateAllCallbackCalled");
 
-    public final ReferenceProperties<?> referencedComponent = new ReferenceProperties<>("referencedComponent", "def1");
+    public ReferenceProperties<?> referencedComponent = new ReferenceProperties<>("referencedComponent", "def1");
 
     private List<String> methodCalled = new ArrayList<>();
 
@@ -331,11 +331,11 @@ public class FullExampleProperties extends PropertiesImpl {
 
         private static final long serialVersionUID = 8094271685971123111L;
 
-        public final Property<String> colString = newString("colString");
+        public Property<String> colString = newString("colString");
 
-        public final EnumProperty<ColEnum> colEnum = newEnum("colEnum", ColEnum.class);
+        public EnumProperty<ColEnum> colEnum = newEnum("colEnum", ColEnum.class);
 
-        public final Property<Boolean> colBoolean = newBoolean("colBoolean");
+        public Property<Boolean> colBoolean = newBoolean("colBoolean");
 
         public CommonProperties(String name) {
             super(name);

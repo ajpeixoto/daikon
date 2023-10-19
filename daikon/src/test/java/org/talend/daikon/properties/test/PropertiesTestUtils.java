@@ -255,6 +255,7 @@ public class PropertiesTestUtils {
                     + ".displayName] in [the proper messages.properties]", new Throwable());
         }
         if (prop.getDisplayName().endsWith(".displayName")) {// display this to help create the I18N file
+            prop.getDisplayName();
             System.out.println("property." + prop.getName() + ".displayName=");
         }
     }

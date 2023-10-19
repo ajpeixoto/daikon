@@ -33,7 +33,7 @@
         <asm.version>9.4</asm.version>
         <aspectjweaver.version>1.9.19</aspectjweaver.version>
         <assertj-core.version>3.24.2</assertj-core.version>
-        <avro.version>1.11.1</avro.version>
+        <avro.version>1.11.3</avro.version>
         <awaitility.version>4.2.0</awaitility.version>
         <bcprov.version>1.70</bcprov.version>
         <bnd.version>3.0.0</bnd.version>
@@ -65,7 +65,7 @@
         <javax.inject.version>1</javax.inject.version>
         <jersey-common.version>3.1.2</jersey-common.version>
         <jettison.version>1.5.4</jettison.version>
-        <json-io.version>4.14.0</json-io.version>
+        <json-io.version>4.14.2</json-io.version>
         <json-path-assert.version>2.7.0</json-path-assert.version>
         <json-schema-validator.version>1.0.78</json-schema-validator.version>
         <json-smart.version>2.4.9</json-smart.version>

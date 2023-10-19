@@ -78,7 +78,7 @@ public class WidgetTest {
         assertFalse(widget.isAutoFocus());
     }
 
-    class WidgetTestProperties extends TestProperties {
+    public class WidgetTestProperties extends TestProperties {
 
         public Property<String> confProperty = newProperty("confProperty");
 

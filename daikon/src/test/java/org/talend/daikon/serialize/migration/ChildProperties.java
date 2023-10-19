@@ -26,9 +26,9 @@ public class ChildProperties extends PropertiesImpl implements SerializeSetVersi
 
     private static final long serialVersionUID = -8028841548094758928L;
 
-    public final Property<String> versionOneProp = newString("versionOneProp");
+    public Property<String> versionOneProp = newString("versionOneProp");
 
-    public final Property<String> versionTwoProp = newString("versionTwoProp");
+    public Property<String> versionTwoProp = newString("versionTwoProp");
 
     public ChildProperties(String name) {
         super(name);

@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 public class PresentationItemTest {
 
-    static class PresItemProperties extends PropertiesImpl {
+    static public class PresItemProperties extends PropertiesImpl {
 
-        public final PresentationItem buttonValue = new PresentationItem("buttonValue");
+        public PresentationItem buttonValue = new PresentationItem("buttonValue");
 
         public PresItemProperties(String name) {
             super(name);

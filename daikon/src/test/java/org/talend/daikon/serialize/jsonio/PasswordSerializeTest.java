@@ -39,7 +39,7 @@ public class PasswordSerializeTest {
         assertEquals("myPassword", deserializedProp.userPassword.password.getValue());
     }
 
-    class BasicProperties extends PropertiesImpl {
+    public class BasicProperties extends PropertiesImpl {
 
         public UserPasswordProperties userPassword = new UserPasswordProperties("userPassword");
 
@@ -74,7 +74,7 @@ public class PasswordSerializeTest {
         }
     }
 
-    class NestedProperties extends PropertiesImpl {
+    public class NestedProperties extends PropertiesImpl {
 
         public UserPasswordProperties userPassword = new UserPasswordProperties("userPassword");
 
@@ -84,7 +84,7 @@ public class PasswordSerializeTest {
 
     }
 
-    class UserPasswordProperties extends PropertiesImpl {
+    public class UserPasswordProperties extends PropertiesImpl {
 
         public Property<String> userId = newProperty("userId").setRequired(); //$NON-NLS-1$
 

@@ -64,7 +64,7 @@ public class PropertiesTest {
 
     private static final KeySource keySource = KeySources.random(16);
 
-    private final static class StringListProperties extends PropertiesImpl {
+    public final static class StringListProperties extends PropertiesImpl {
 
         public Property<List<String>> listString = newProperty(new TypeLiteral<>() {
         }, "listString");
@@ -74,7 +74,7 @@ public class PropertiesTest {
         }
     }
 
-    private final static class AnotherNestedProperties extends PropertiesImpl {
+    public final static class AnotherNestedProperties extends PropertiesImpl {
 
         public StringProperty stringProp = newProperty("stringProp");
 
@@ -674,7 +674,7 @@ public class PropertiesTest {
 
     static public class NestedCryptedProperty extends PropertiesImpl {
 
-        public final Property<String> password = newString("password").setFlags(EnumSet.of(Flags.ENCRYPT));
+        public Property<String> password = newString("password").setFlags(EnumSet.of(Flags.ENCRYPT));
 
         public NestedCryptedProperty(String name) {
             super(name);
@@ -687,7 +687,7 @@ public class PropertiesTest {
             super(name);
         }
 
-        public final NestedCryptedProperty nestedPassword = new NestedCryptedProperty("nestedPassword");
+        public NestedCryptedProperty nestedPassword = new NestedCryptedProperty("nestedPassword");
 
         protected void encryptData(Property property, boolean encrypt) {
             // Delegate to
