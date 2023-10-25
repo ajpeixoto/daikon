@@ -65,6 +65,7 @@
         <javax.inject.version>1</javax.inject.version>
         <jersey-common.version>3.1.2</jersey-common.version>
         <jettison.version>1.5.4</jettison.version>
+        <joda-time.version>2.12.5</joda-time.version>
         <json-io.version>4.14.2</json-io.version>
         <json-path-assert.version>2.7.0</json-path-assert.version>
         <json-schema-validator.version>1.0.78</json-schema-validator.version>
@@ -243,6 +244,11 @@
     </distributionManagement>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.xerial.snappy</groupId>
                 <artifactId>snappy-java</artifactId>
