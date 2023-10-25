@@ -3,7 +3,7 @@
     <parent>
         <artifactId>daikon-spring</artifactId>
         <groupId>org.talend.daikon</groupId>
-        <version>8.4.11</version>
+        <version>8.5.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
