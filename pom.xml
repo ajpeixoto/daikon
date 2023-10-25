@@ -68,7 +68,7 @@
         <json-io.version>4.14.2</json-io.version>
         <json-path-assert.version>2.7.0</json-path-assert.version>
         <json-schema-validator.version>1.0.78</json-schema-validator.version>
-        <json-smart.version>2.4.9</json-smart.version>
+        <json-smart.version>2.4.11</json-smart.version>
         <json.version>20231013</json.version>
         <jsonassert.version>1.5.1</jsonassert.version>
         <jsr305.version>3.0.2</jsr305.version>
@@ -78,7 +78,7 @@
         <kafka-confluent>7.4.0</kafka-confluent>
         <log4j2.version>2.20.0</log4j2.version>
         <logback-access-spring-boot-starter.version>3.4.6</logback-access-spring-boot-starter.version>
-        <logback.version>1.4.8</logback.version>
+        <logback.version>1.4.11</logback.version>
         <lombok.version>1.18.26</lombok.version>
         <maven-javadoc-_i18n.version>3.0.1</maven-javadoc-_i18n.version>
         <mockito-core.version>5.2.0</mockito-core.version>
@@ -87,15 +87,15 @@
         <nimbusds.version>10.7</nimbusds.version>
         <okhttp.version>4.10.0</okhttp.version>
         <pax-url-aether.version>2.6.12</pax-url-aether.version>
-        <reactor-core.version>3.5.4</reactor-core.version>
+        <reactor-core.version>3.5.11</reactor-core.version>
         <rest-assured.version>5.3.2</rest-assured.version>
         <slf4j-log4j12.version>2.0.7</slf4j-log4j12.version>
-        <slf4j.version>2.0.6</slf4j.version>
-        <snakeyaml.version>2.0</snakeyaml.version>
-        <spring-boot-dependencies.version>3.1.2</spring-boot-dependencies.version>
-        <spring-boot.version>3.1.4</spring-boot.version>
+        <slf4j.version>2.0.9</slf4j.version>
+        <snakeyaml.version>2.2</snakeyaml.version>
+        <spring-boot-dependencies.version>3.1.5</spring-boot-dependencies.version>
+        <spring-boot.version>3.1.5</spring-boot.version>
         <spring-cloud-aws.version>3.0.0-RC1</spring-cloud-aws.version>
-        <spring-cloud-dependencies.version>2022.0.3</spring-cloud-dependencies.version>
+        <spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
         <testcontainers.version>1.17.6</testcontainers.version>
         <zelib.version>0.0.1</zelib.version>
 
@@ -120,7 +120,8 @@
         <scalatest_2.13.version>3.2.11</scalatest_2.13.version>
         <silhouette-version>7.0.0</silhouette-version>
         <slick-version>3.3.2</slick-version>
-        <scala-version>2.13.10</scala-version>
+        <scala-version>2.13.11</scala-version>
+        <snappy-java.version>1.1.10.5</snappy-java.version>
 
         <!-- plugin -->
         <!-- When suffixed *_documentation -> lock down plugins versions to avoid using Maven defaults -->
@@ -242,6 +243,11 @@
     </distributionManagement>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.xerial.snappy</groupId>
+                <artifactId>snappy-java</artifactId>
+                <version>${snappy-java.version}</version>
+            </dependency>
             <!-- SPRING -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -558,15 +564,22 @@
                 <artifactId>json-smart</artifactId>
                 <version>${json-smart.version}</version>
             </dependency>
+<!--        TODO REMOVE use only jdk18on-->
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15on</artifactId>
                 <version>${bcprov.version}</version>
             </dependency>
+<!--        TODO REMOVE use only jdk18on-->
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk15on</artifactId>
                 <version>${bcprov.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk18on</artifactId>
+                <version>${bouncycastle.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.bouncycastle</groupId>
@@ -640,6 +653,12 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
+                <version>${mockito-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-inline</artifactId>
                 <version>${mockito-core.version}</version>
                 <scope>test</scope>
             </dependency>
