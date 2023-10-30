@@ -2,6 +2,7 @@ package org.talend.daikon.spring.audit.logs.api;
 
 import static org.talend.daikon.security.tenant.ReactiveTenancyContextHolder.TENANCY_CONTEXT_KEY;
 
+import org.junit.platform.commons.util.StringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.core.context.SecurityContext;
@@ -24,8 +25,10 @@ public class TenancyContextWebFilter implements WebFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-        return ReactiveSecurityContextHolder.getContext().filter(c -> c.getAuthentication() != null)
-                .map(SecurityContext::getAuthentication).flatMap(authentication -> chain.filter(exchange)
+        return ReactiveSecurityContextHolder.getContext() //
+                .filter(c -> c.getAuthentication() != null) //
+                .map(SecurityContext::getAuthentication) //
+                .flatMap(authentication -> chain.filter(exchange) //
                         .contextWrite(c -> c.hasKey(TENANCY_CONTEXT_KEY) ? c : withTenancyContext(c, authentication)));
     }
 

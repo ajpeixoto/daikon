@@ -1,7 +1,0 @@
-= Daikon Release Notes (8.5.0) - 10/25/2023
-
-Thanks to @Franck Zetule
-
-== Other
-- fix(TPRUN-6851): Align tsbi-bom, daikon & daikon-ee versions (#1038) (link:https://github.com/Talend/daikon/pull/1038[#1038])
-- fix(TPRUN-6851): Align tsbi-bom, daikon & daikon-ee versions (#1037) (link:https://github.com/Talend/daikon/pull/1037[#1037])

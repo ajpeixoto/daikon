@@ -1,5 +1,9 @@
 package org.talend.daikon.security.tenant;
 
+import static org.talend.daikon.security.tenant.ReactiveTenancyContextHolder.TENANCY_CONTEXT_KEY;
+
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -14,12 +18,9 @@ import org.talend.daikon.multitenant.context.DefaultTenancyContext;
 import org.talend.daikon.multitenant.context.TenancyContext;
 import org.talend.daikon.multitenant.provider.DefaultTenant;
 import org.talend.daikon.spring.auth.common.model.userdetails.AuthUserDetails;
+
 import reactor.core.publisher.Mono;
 import reactor.util.context.Context;
-
-import java.util.Optional;
-
-import static org.talend.daikon.security.tenant.ReactiveTenancyContextHolder.TENANCY_CONTEXT_KEY;
 
 /**
  * Inspired by {@link org.springframework.security.web.server.context.ReactorContextWebFilter}
@@ -36,16 +37,21 @@ public class TenancyContextWebFilter implements WebFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-        return ReactiveSecurityContextHolder.getContext().filter(c -> c.getAuthentication() != null)
-                .map(SecurityContext::getAuthentication).flatMap(authentication -> chain.filter(exchange)
+        return ReactiveSecurityContextHolder.getContext()
+                .doOnSubscribe(e -> LOGGER.debug("Starting filter: '{}'", this.getClass().getName()))
+                .filter(c -> c.getAuthentication() != null) //
+                .map(SecurityContext::getAuthentication) //
+                .flatMap(authentication -> chain.filter(exchange)
                         .contextWrite(c -> c.hasKey(TENANCY_CONTEXT_KEY) ? c : withTenancyContext(c, authentication, exchange)));
     }
 
     private Context withTenancyContext(Context mainContext, Authentication authentication, ServerWebExchange exchange) {
         String headerTenantId = Optional.ofNullable(exchange.getRequest().getHeaders().get(REQUEST_HEADER_TENANT_ID))
-                .filter(strings -> !strings.isEmpty()).map(strings -> strings.get(0)).orElse(null);
-        return mainContext
-                .putAll(loadTenancyContext(authentication, headerTenantId).as(ReactiveTenancyContextHolder::withTenancyContext));
+                .filter(strings -> !strings.isEmpty()) //
+                .map(strings -> strings.get(0)) //
+                .orElse(null);
+        return mainContext.putAll(loadTenancyContext(authentication, headerTenantId) //
+                .as(ReactiveTenancyContextHolder::withTenancyContext));
     }
 
     public Mono<TenancyContext> loadTenancyContext(Authentication authentication, String headerTenantId) {
@@ -55,7 +61,9 @@ public class TenancyContextWebFilter implements WebFilter {
             if (headerTenantId != null) {
                 addTenant(tenantContext, headerTenantId, "JWT");
             } else {
-                String tenantId = jwtPrincipal.getClaimAsString(TENANT_ID) != null ? jwtPrincipal.getClaimAsString(TENANT_ID) : jwtPrincipal.getClaimAsString(CLAIM_TENANT_ID);
+                String tenantId = jwtPrincipal.getClaimAsString(TENANT_ID) != null ?
+                        jwtPrincipal.getClaimAsString(TENANT_ID) :
+                        jwtPrincipal.getClaimAsString(CLAIM_TENANT_ID);
                 addTenant(tenantContext, tenantId, "JWT");
             }
         } else if (authentication.getPrincipal() instanceof AuthUserDetails) {
@@ -73,5 +81,4 @@ public class TenancyContextWebFilter implements WebFilter {
         LOGGER.debug("Populate TenancyContext for '{}' based on {}", tenantId, principalType);
         tenantContext.setTenant(new DefaultTenant(tenantId, null));
     }
-
 }

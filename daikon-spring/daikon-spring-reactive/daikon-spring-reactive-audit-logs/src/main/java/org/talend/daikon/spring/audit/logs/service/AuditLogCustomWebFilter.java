@@ -44,42 +44,49 @@ public class AuditLogCustomWebFilter implements WebFilter {
 
     @Override
     public Mono<Void> filter(final ServerWebExchange serverWebExchange, final WebFilterChain chain) {
-        return getEndpointMethod(serverWebExchange, chain).zipWith(getTenant()).flatMap(methodAndTenant -> {
-            if (methodAndTenant.getT1().getAnnotation(GenerateAuditLog.class) != null) {
-                BodyCaptureExchange bodyCaptureExchange = new BodyCaptureExchange(serverWebExchange);
-                return chain.filter(bodyCaptureExchange)
-                        .doFinally(unused -> sendAuditLog(bodyCaptureExchange, methodAndTenant.getT1(), methodAndTenant.getT2()));
-            }
-            return chain.filter(serverWebExchange);
-        }).onErrorResume(throwable -> {
-            if (throwable instanceof AuditLogsWebFilterException) {
-                return chain.filter(serverWebExchange);
-            }
-            return Mono.error(throwable);
-        });
+        return getEndpointMethod(serverWebExchange) //
+                .doOnSubscribe(e -> log.debug("Starting filter: '{}'", this.getClass().getName())) //
+                .mapNotNull(method -> method.getAnnotation(GenerateAuditLog.class)) //
+                .switchIfEmpty(Mono.error(new AuditLogsWebFilterException(AuditLogsErrorCode.METHOD_NOT_HANDLED)))
+                .zipWith(getTenantIdentity()) //
+                .flatMap(annotationAndTenant -> {
+                    BodyCaptureExchange bodyCaptureExchange = new BodyCaptureExchange(serverWebExchange);
+                    GenerateAuditLog annotation = annotationAndTenant.getT1();
+                    String tenant = annotationAndTenant.getT2();
+                    return chain.filter(serverWebExchange)
+                            .doFinally(unused -> sendAuditLog(bodyCaptureExchange, annotation, tenant));
+                }) //
+                .onErrorResume(throwable -> {
+                    if (throwable instanceof AuditLogsWebFilterException) {
+                        return chain.filter(serverWebExchange);
+                    } else {
+                        return Mono.error(throwable);
+                    }
+                });
     }
 
-    private void sendAuditLog(final BodyCaptureExchange bodyCaptureExchange, final Method method, String tenant) {
-        GenerateAuditLog annotation = method.getAnnotation(GenerateAuditLog.class);
-
+    private void sendAuditLog(final BodyCaptureExchange bodyCaptureExchange, final GenerateAuditLog annotation, String tenant) {
         log.debug("request: {}", bodyCaptureExchange.getRequest().getFullBody());
         log.debug("response: {}", bodyCaptureExchange.getResponse().getFullBody());
-
         auditLogSender.sendAuditLog(tenant, bodyCaptureExchange.getRequest(), bodyCaptureExchange.getRequest().getFullBody(),
                 Objects.requireNonNull(bodyCaptureExchange.getResponse().getStatusCode()).value(),
                 bodyCaptureExchange.getResponse().getFullBody(), annotation);
     }
 
-    private Mono<Method> getEndpointMethod(ServerWebExchange serverWebExchange, WebFilterChain chain) {
-        return requestMappingHandlerMapping.getHandler(serverWebExchange).cast(HandlerMethod.class).map(HandlerMethod::getMethod)
+    private Mono<Method> getEndpointMethod(ServerWebExchange serverWebExchange) {
+        return requestMappingHandlerMapping.getHandler(serverWebExchange) //
+                .cast(HandlerMethod.class) //
+                .map(HandlerMethod::getMethod) //
                 .switchIfEmpty(Mono.error(new AuditLogsWebFilterException(AuditLogsErrorCode.METHOD_NOT_HANDLED)))
                 .doOnError(e -> log.debug("Skipping audit-log filter because endpoint is not handled. {}", e.getMessage()))
                 .doOnSuccess(
                         o -> log.debug("Annotations found on method {}: {}", o.getName(), Arrays.toString(o.getAnnotations())));
     }
 
-    private Mono<String> getTenant() {
-        return ReactiveTenancyContextHolder.getContext().map(TenancyContext::getTenant).map(Tenant::getIdentity)
+    private Mono<String> getTenantIdentity() {
+        return ReactiveTenancyContextHolder.getContext() //
+                .mapNotNull(TenancyContext::getTenant) //
+                .mapNotNull(Tenant::getIdentity) //
                 .switchIfEmpty(Mono.error(new AuditLogsWebFilterException(AuditLogsErrorCode.TENANT_UNAVAILABLE)))
                 .doOnError(e -> log.debug("Skipping audit-log filter because tenant is not available. {}", e.getMessage()))
                 .cast(String.class);
@@ -87,7 +94,7 @@ public class AuditLogCustomWebFilter implements WebFilter {
 
     static class AuditLogsWebFilterException extends TalendRuntimeException {
 
-        public AuditLogsWebFilterException(ErrorCode code) {
+        AuditLogsWebFilterException(ErrorCode code) {
             super(code);
         }
     }

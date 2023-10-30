@@ -8,20 +8,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.reset;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.OK;
-import static org.talend.daikon.spring.audit.common.model.AuditLogFieldEnum.ACCOUNT_ID;
-import static org.talend.daikon.spring.audit.common.model.AuditLogFieldEnum.APPLICATION_ID;
-import static org.talend.daikon.spring.audit.common.model.AuditLogFieldEnum.CLIENT_IP;
-import static org.talend.daikon.spring.audit.common.model.AuditLogFieldEnum.EVENT_CATEGORY;
-import static org.talend.daikon.spring.audit.common.model.AuditLogFieldEnum.EVENT_OPERATION;
-import static org.talend.daikon.spring.audit.common.model.AuditLogFieldEnum.EVENT_TYPE;
-import static org.talend.daikon.spring.audit.common.model.AuditLogFieldEnum.LOG_ID;
-import static org.talend.daikon.spring.audit.common.model.AuditLogFieldEnum.REQUEST;
-import static org.talend.daikon.spring.audit.common.model.AuditLogFieldEnum.REQUEST_ID;
-import static org.talend.daikon.spring.audit.common.model.AuditLogFieldEnum.RESPONSE;
-import static org.talend.daikon.spring.audit.common.model.AuditLogFieldEnum.TIMESTAMP;
+import static org.talend.daikon.spring.audit.common.model.AuditLogFieldEnum.*;
+import static org.talend.daikon.spring.audit.logs.AuditLogTestApp.TEST_BODY_RESPONSE;
 
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,14 +24,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.talend.daikon.multitenant.provider.DefaultTenant;
-import org.talend.daikon.security.tenant.ReactiveTenancyContextHolder;
 import org.talend.daikon.spring.audit.logs.api.AppTestConfig;
 import org.talend.daikon.spring.audit.logs.api.TestBody;
 import org.talend.logging.audit.impl.AuditLoggerBase;
 import org.talend.logging.audit.impl.DefaultContextImpl;
 
 import io.restassured.module.webtestclient.response.WebTestClientResponse;
+import io.restassured.module.webtestclient.specification.WebTestClientRequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = AppTestConfig.class)
 @AutoConfigureWebTestClient(timeout = "36000")
@@ -60,20 +49,45 @@ public class AuditLogTest {
 
     private TestBody testBody;
 
+    private WebTestClientRequestSpecification baseRequest() {
+        return given().webTestClient(webTestClient).header(CLIENT_IP.name(), "0.0.0.0.0")
+                .contentType(MediaType.APPLICATION_JSON_VALUE);
+    }
+
     @BeforeEach
     public void setup() {
         reset(auditLoggerBase);
-        ReactiveTenancyContextHolder.withTenant(new DefaultTenant(UUID.randomUUID().toString(), null));
         testBody = TestBody.builder().name("request").date(ZonedDateTime.now()).password("secret").build();
     }
 
     @Test
     @WithMockUser(username = TENANT_ID)
-    public void testAuditLog() {
-        WebTestClientResponse r = given().webTestClient(webTestClient).header(CLIENT_IP.name(), "0.0.0.0.0")
-                .contentType(MediaType.APPLICATION_JSON_VALUE).body(testBody).post("/test");
+    public void testAuditLogMethodNotHandledOK() {
+        WebTestClientResponse r = baseRequest().delete("/test");
 
         assertEquals(OK.value(), r.getStatusCode());
+        assertEquals(TEST_BODY_RESPONSE, r.getBody().as(TestBody.class));
+
+        Mockito.verifyNoInteractions(auditLoggerBase);
+    }
+
+    @Test
+    @WithMockUser(username = TENANT_ID)
+    public void testAuditLogMethodNotHandledKO() {
+        WebTestClientResponse r = baseRequest().patch("/test");
+
+        assertEquals(INTERNAL_SERVER_ERROR.value(), r.getStatusCode());
+
+        Mockito.verifyNoInteractions(auditLoggerBase);
+    }
+
+    @Test
+    @WithMockUser(username = TENANT_ID)
+    public void testAuditLogMethodHandledOK() {
+        WebTestClientResponse r = baseRequest().body(testBody).post("/test");
+
+        assertEquals(OK.value(), r.getStatusCode());
+        assertEquals(TEST_BODY_RESPONSE, r.getBody().as(TestBody.class));
 
         Mockito.verify(auditLoggerBase).log(any(), any(), contextArgumentCaptor.capture(), any(), any());
         DefaultContextImpl context = contextArgumentCaptor.getValue();
@@ -84,7 +98,7 @@ public class AuditLogTest {
         assertEquals(AuditLogTestApp.APP_NAME, context.get(APPLICATION_ID.getId()));
         assertEquals(AuditLogTestApp.EVENT_TYPE, context.get(EVENT_TYPE.getId()));
         assertEquals(AuditLogTestApp.EVENT_CATEGORY, context.get(EVENT_CATEGORY.getId()));
-        assertEquals("create", context.get(EVENT_OPERATION.getId()));
+        assertEquals("post", context.get(EVENT_OPERATION.getId()));
         assertEquals(TENANT_ID, context.get(ACCOUNT_ID.getId()));
         assertNotNull(context.get(REQUEST.getId()));
         assertNotNull(context.get(RESPONSE.getId()));
@@ -95,9 +109,8 @@ public class AuditLogTest {
 
     @Test
     @WithMockUser(username = TENANT_ID)
-    public void testAuditLogOnError() {
-        WebTestClientResponse r = given().webTestClient(webTestClient).header(CLIENT_IP.name(), "0.0.0.0.0")
-                .contentType(MediaType.APPLICATION_JSON_VALUE).body(testBody).put("/test");
+    public void testAuditLogMethodHandledKO() {
+        WebTestClientResponse r = baseRequest().body(testBody).put("/test");
 
         assertEquals(INTERNAL_SERVER_ERROR.value(), r.getStatusCode());
 
@@ -110,10 +123,9 @@ public class AuditLogTest {
         assertEquals(AuditLogTestApp.APP_NAME, context.get(APPLICATION_ID.getId()));
         assertEquals(AuditLogTestApp.EVENT_TYPE, context.get(EVENT_TYPE.getId()));
         assertEquals(AuditLogTestApp.EVENT_CATEGORY, context.get(EVENT_CATEGORY.getId()));
-        assertEquals("update", context.get(EVENT_OPERATION.getId()));
+        assertEquals("put", context.get(EVENT_OPERATION.getId()));
         assertEquals(TENANT_ID, context.get(ACCOUNT_ID.getId()));
         assertNotNull(context.get(REQUEST.getId()));
         assertNotNull(context.get(RESPONSE.getId()));
     }
-
 }
