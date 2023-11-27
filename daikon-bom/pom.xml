@@ -148,11 +148,6 @@
             </dependency>
             <dependency>
                 <groupId>org.talend.daikon</groupId>
-                <artifactId>daikon-spring-utils</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.talend.daikon</groupId>
                 <artifactId>daikon-spring-zipkin</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -194,11 +189,6 @@
             <dependency>
                 <groupId>org.talend.daikon</groupId>
                 <artifactId>logging-event-layout</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.talend.daikon</groupId>
-                <artifactId>logging-http-headers</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

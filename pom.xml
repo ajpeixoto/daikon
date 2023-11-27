@@ -30,21 +30,22 @@
 
         <amazon.awssdk.bom.version>2.20.27</amazon.awssdk.bom.version>
         <antlr.version>4.12.0</antlr.version>
-        <asm.version>9.4</asm.version>
+        <asm.version>9.6</asm.version>
         <aspectjweaver.version>1.9.19</aspectjweaver.version>
         <assertj-core.version>3.24.2</assertj-core.version>
         <avro.version>1.11.3</avro.version>
         <awaitility.version>4.2.0</awaitility.version>
         <bcprov.version>1.70</bcprov.version>
+        <bouncycastle.version>1.77</bouncycastle.version>
         <bnd.version>3.0.0</bnd.version>
         <cloudevents.version>2.4.2</cloudevents.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
-        <commons-codec.version>1.15</commons-codec.version>
-        <commons-compress.version>1.24.0</commons-compress.version>
+        <commons-codec.version>1.16.0</commons-codec.version>
+        <commons-compress.version>1.25.0</commons-compress.version>
         <commons-configuration2.version>2.9.0</commons-configuration2.version>
-        <commons-io.version>2.11.0</commons-io.version>
-        <commons-lang3.version>3.12.0</commons-lang3.version>
-        <commons-text.version>1.10.0</commons-text.version>
+        <commons-io.version>2.15.0</commons-io.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
+        <commons-text.version>1.11.0</commons-text.version>
         <commons-validator.version>1.7</commons-validator.version>
         <easymock.version>5.1.0</easymock.version>
         <ecs-logging-core.version>1.5.0</ecs-logging-core.version>
@@ -95,9 +96,9 @@
         <slf4j-log4j12.version>2.0.7</slf4j-log4j12.version>
         <slf4j.version>2.0.9</slf4j.version>
         <snakeyaml.version>2.2</snakeyaml.version>
-        <spring-boot-dependencies.version>3.1.5</spring-boot-dependencies.version>
-        <spring-boot.version>3.1.5</spring-boot.version>
-        <spring-cloud-aws.version>3.0.0-RC1</spring-cloud-aws.version>
+        <spring-boot-dependencies.version>3.1.6</spring-boot-dependencies.version>
+        <spring-boot.version>3.1.6</spring-boot.version>
+        <spring-cloud-aws-dependencies.version>3.0.3</spring-cloud-aws-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
         <testcontainers.version>1.17.6</testcontainers.version>
         <zelib.version>0.0.1</zelib.version>
@@ -123,7 +124,7 @@
         <scalatest_2.13.version>3.2.11</scalatest_2.13.version>
         <silhouette-version>7.0.0</silhouette-version>
         <slick-version>3.3.2</slick-version>
-        <scala-version>2.13.11</scala-version>
+        <scala-version>2.13.12</scala-version>
         <snappy-java.version>1.1.10.5</snappy-java.version>
 
         <!-- plugin -->
@@ -275,7 +276,7 @@
             <dependency>
                 <groupId>io.awspring.cloud</groupId>
                 <artifactId>spring-cloud-aws-dependencies</artifactId>
-                <version>${spring-cloud-aws.version}</version>
+                <version>${spring-cloud-aws-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
