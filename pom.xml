@@ -38,7 +38,7 @@
         <bcprov.version>1.70</bcprov.version>
         <bouncycastle.version>1.77</bouncycastle.version>
         <bnd.version>3.0.0</bnd.version>
-        <cloudevents.version>2.5.0</cloudevents.version>
+        <cloudevents.version>2.4.2</cloudevents.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-codec.version>1.16.0</commons-codec.version>
         <commons-compress.version>1.25.0</commons-compress.version>
