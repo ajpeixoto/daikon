@@ -78,10 +78,10 @@
         <junit-pioneer.version>2.0.0</junit-pioneer.version>
         <kafka-clients.version>3.5.1</kafka-clients.version>
         <kafka-confluent>7.4.0</kafka-confluent>
-        <log4j2.version>2.20.0</log4j2.version>
+        <log4j2.version>2.22.0</log4j2.version>
         <logback-access-spring-boot-starter.version>3.4.6</logback-access-spring-boot-starter.version>
-        <logback.version>1.4.11</logback.version>
-        <lombok.version>1.18.26</lombok.version>
+        <logback.version>1.4.14</logback.version>
+        <lombok.version>1.18.30</lombok.version>
         <maven-javadoc-_i18n.version>3.0.1</maven-javadoc-_i18n.version>
         <mockito-core.version>5.2.0</mockito-core.version>
         <mongo-java-server.version>1.43.0</mongo-java-server.version>
@@ -93,7 +93,7 @@
         <reactor-core.version>3.5.12</reactor-core.version>
         <reactor-netty-http.version>1.1.13</reactor-netty-http.version>
         <rest-assured.version>5.3.2</rest-assured.version>
-        <slf4j-log4j12.version>2.0.7</slf4j-log4j12.version>
+        <slf4j-log4j12.version>2.0.9</slf4j-log4j12.version>
         <slf4j.version>2.0.9</slf4j.version>
         <snakeyaml.version>2.2</snakeyaml.version>
         <spring-boot-dependencies.version>3.1.6</spring-boot-dependencies.version>
