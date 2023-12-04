@@ -1,0 +1,9 @@
+= Daikon Release Notes (8.5.4) - 12/04/2023
+
+Thanks to @Franck Zetule, @YohannTalend
+
+== Other
+- chore(TPRUN-4721): CVE-2023-6378 Force ch.qos.logback:logback-core:1.4.11 to 1.4.12+ (#1048) (link:https://github.com/Talend/daikon/pull/1048[#1048])
+- Revert "chore(TPOPS-6824): Enrich talendcloudeventextension with new extensions for Qlik support" (#1047) (link:https://github.com/Talend/daikon/pull/1047[#1047])
+- chore(TPOPS-6824): Enrich talendcloudeventextension with new extensions for Qlik support (#1046) (link:https://github.com/Talend/daikon/pull/1046[#1046])
+- chore(TPRUN-7129): Update Spring-boot from 3.1.5 to 3.1.6 (#1045) (link:https://github.com/Talend/daikon/pull/1045[#1045])
