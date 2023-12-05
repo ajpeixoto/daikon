@@ -1,0 +1,6 @@
+= Daikon Release Notes (8.5.5) - 12/05/2023
+
+Thanks to @YohannTalend
+
+== Other
+- chore(TPOPS-6824): Enrich talendcloudeventextension with new extensions for Qlik support (#1049) (link:https://github.com/Talend/daikon/pull/1049[#1049])
