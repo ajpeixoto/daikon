@@ -1,12 +1,8 @@
 package org.talend.daikon.cloudevent;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
-import java.util.UUID;
 
 import io.cloudevents.CloudEventExtension;
 import io.cloudevents.CloudEventExtensions;
@@ -30,31 +26,81 @@ public class TalendCloudEventExtension implements CloudEventExtension {
      */
     public static final String CORRELATIONID = "correlationid";
 
-    private static final Set<String> KEY_SET = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(TENANTID, CORRELATIONID)));
+    /**
+     * The key of the {@code ownerid} extension
+     */
+    public static final String OWNERID = "ownerid";
 
-    private String tenantid;
+    /**
+     * The key of the {@code userid} extension
+     */
+    public static final String USERID = "userid";
 
-    private String correlationid;
+    /**
+     * The key of the {@code clientid} extension
+     */
+    public static final String CLIENTID = "clientid";
+
+    /**
+     * The key of the {@code description} extension
+     */
+    public static final String DESCRIPTION = "description";
+
+    private static final Set<String> KEY_SET = Set.of(TENANTID, CORRELATIONID, OWNERID, USERID, CLIENTID, DESCRIPTION);
+
+    private String tenantId;
+
+    private String correlationId;
+
+    private String ownerId;
+
+    private String userId;
+
+    private String clientId;
+
+    private String description;
+
+    public TalendCloudEventExtension() {
+    }
+
+    public TalendCloudEventExtension(TalendCloudEventExtensionBuilder talendCloudEventExtensionBuilder) {
+        this.tenantId = talendCloudEventExtensionBuilder.tenantId;
+        this.correlationId = talendCloudEventExtensionBuilder.correlationId;
+        this.ownerId = talendCloudEventExtensionBuilder.ownerId;
+        this.userId = talendCloudEventExtensionBuilder.userId;
+        this.clientId = talendCloudEventExtensionBuilder.clientId;
+        this.description = talendCloudEventExtensionBuilder.description;
+    }
 
     @Override
     public void readFrom(CloudEventExtensions cloudEventExtensions) {
-        Object tp = cloudEventExtensions.getExtension(TENANTID);
-        if (tp != null) {
-            this.tenantid = tp.toString();
-        }
-        Object ts = cloudEventExtensions.getExtension(CORRELATIONID);
-        if (ts != null) {
-            this.correlationid = ts.toString();
-        }
+        this.tenantId = getExtensionAsString(cloudEventExtensions, TENANTID);
+        this.correlationId = getExtensionAsString(cloudEventExtensions, CORRELATIONID);
+        this.ownerId = getExtensionAsString(cloudEventExtensions, OWNERID);
+        this.userId = getExtensionAsString(cloudEventExtensions, USERID);
+        this.clientId = getExtensionAsString(cloudEventExtensions, CLIENTID);
+        this.description = getExtensionAsString(cloudEventExtensions, DESCRIPTION);
+    }
+
+    private String getExtensionAsString(CloudEventExtensions cloudEventExtensions, String extensionName) {
+        return (String) cloudEventExtensions.getExtension(extensionName);
     }
 
     @Override
     public Object getValue(String key) throws IllegalArgumentException {
         switch (key) {
         case TENANTID:
-            return this.tenantid;
+            return this.tenantId;
         case CORRELATIONID:
-            return this.correlationid;
+            return this.correlationId;
+        case OWNERID:
+            return this.ownerId;
+        case USERID:
+            return this.userId;
+        case CLIENTID:
+            return this.clientId;
+        case DESCRIPTION:
+            return this.description;
         }
         throw ExtensionUtils.generateInvalidKeyException(this.getClass(), key);
     }
@@ -64,26 +110,35 @@ public class TalendCloudEventExtension implements CloudEventExtension {
         return KEY_SET;
     }
 
-    public String getTenantid() {
-        return tenantid;
+    public String getTenantId() {
+        return tenantId;
     }
 
-    public void setTenantid(String tenantid) {
-        this.tenantid = tenantid;
+    public String getCorrelationId() {
+        return correlationId;
     }
 
-    public String getCorrelationid() {
-        return correlationid;
+    public String getOwnerId() {
+        return ownerId;
     }
 
-    public void setCorrelationid(String correlationid) {
-        this.correlationid = correlationid;
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", TalendCloudEventExtension.class.getSimpleName() + "[", "]").add("tenantid=" + tenantid)
-                .add("correlationid='" + correlationid + "'").toString();
+        return new StringJoiner(", ", TalendCloudEventExtension.class.getSimpleName() + "[", "]").add("tenantid=" + tenantId)
+                .add("correlationid='" + correlationId + "'").add("ownerid='" + ownerId + "'").add("userid='" + userId + "'")
+                .add("clientid='" + clientId + "'").add("description='" + description + "'").toString();
     }
 
     @Override
@@ -93,11 +148,69 @@ public class TalendCloudEventExtension implements CloudEventExtension {
         if (o == null || getClass() != o.getClass())
             return false;
         org.talend.daikon.cloudevent.TalendCloudEventExtension that = (org.talend.daikon.cloudevent.TalendCloudEventExtension) o;
-        return Objects.equals(getCorrelationid(), that.getCorrelationid()) && Objects.equals(getTenantid(), that.getTenantid());
+        return Objects.equals(getCorrelationId(), that.getCorrelationId()) && Objects.equals(getTenantId(), that.getTenantId())
+                && Objects.equals(getOwnerId(), that.getOwnerId()) && Objects.equals(getUserId(), that.getUserId())
+                && Objects.equals(getClientId(), that.getClientId()) && Objects.equals(getDescription(), that.getDescription());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTenantid(), getCorrelationid());
+        return Objects.hash(getTenantId(), getCorrelationId(), getOwnerId(), getUserId(), getClientId(), getDescription());
+    }
+
+    public static TalendCloudEventExtensionBuilder builder() {
+        return new TalendCloudEventExtensionBuilder();
+    }
+
+    public static final class TalendCloudEventExtensionBuilder {
+
+        private String tenantId;
+
+        private String correlationId;
+
+        private String ownerId;
+
+        private String userId;
+
+        private String clientId;
+
+        private String description;
+
+        private TalendCloudEventExtensionBuilder() {
+        }
+
+        public TalendCloudEventExtensionBuilder tenantId(String tenantId) {
+            this.tenantId = tenantId;
+            return this;
+        }
+
+        public TalendCloudEventExtensionBuilder correlationId(String correlationId) {
+            this.correlationId = correlationId;
+            return this;
+        }
+
+        public TalendCloudEventExtensionBuilder ownerId(String ownerId) {
+            this.ownerId = ownerId;
+            return this;
+        }
+
+        public TalendCloudEventExtensionBuilder userId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public TalendCloudEventExtensionBuilder clientId(String clientId) {
+            this.clientId = clientId;
+            return this;
+        }
+
+        public TalendCloudEventExtensionBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public TalendCloudEventExtension build() {
+            return new TalendCloudEventExtension(this);
+        }
     }
 }

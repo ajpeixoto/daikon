@@ -34,9 +34,7 @@ public class ExampleProducerApplication {
 
             Data data = new Data(new Payload(new After("2021-07-01", "123"), null));
 
-            TalendCloudEventExtension tce = new TalendCloudEventExtension();
-            tce.setTenantid("tenantId");
-            tce.setCorrelationid("123");
+            TalendCloudEventExtension tce = TalendCloudEventExtension.builder().tenantId("tenantId").correlationId("123").build();
 
             // Build an event
             CloudEvent event = CloudEventBuilder.v1().withId("hello").withType("example.kafka")
