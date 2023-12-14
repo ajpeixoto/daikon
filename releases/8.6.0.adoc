@@ -1,0 +1,6 @@
+= Daikon Release Notes (8.6.0) - 12/14/2023
+
+Thanks to @François-Xavier Lebastard
+
+== Other
+- chore(TDOPS-5739): Bump to SB 3.2 (#1050) (link:https://github.com/Talend/daikon/pull/1050[#1050])
