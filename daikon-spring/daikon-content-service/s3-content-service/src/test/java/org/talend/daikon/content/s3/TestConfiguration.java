@@ -8,6 +8,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.test.util.TestSocketUtils;
 import org.talend.daikon.content.s3.provider.AmazonS3Provider;
 import org.talend.daikon.content.s3.provider.S3BucketProvider;
@@ -33,6 +34,7 @@ public class TestConfiguration implements InitializingBean, DisposableBean {
     }
 
     @Bean
+    @Primary
     public S3Client s3Client() {
         S3ClientBuilder builder = S3Client.builder();
         builder.credentialsProvider(AnonymousCredentialsProvider.create());

@@ -181,7 +181,7 @@ public class AuthAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(TalendBearerTokenAuthenticationEntryPoint.class)
     public TalendBearerTokenAuthenticationEntryPoint talendBearerTokenAuthenticationEntryPoint(
-            Optional<HandlerExceptionResolver> handlerExceptionResolver) {
+            @Qualifier("handlerExceptionResolver") Optional<HandlerExceptionResolver> handlerExceptionResolver) {
         return new TalendBearerTokenAuthenticationEntryPoint(handlerExceptionResolver.orElse(null));
     }
 
