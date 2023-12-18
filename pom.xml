@@ -85,13 +85,13 @@
         <maven-javadoc-_i18n.version>3.0.1</maven-javadoc-_i18n.version>
         <mockito-core.version>5.2.0</mockito-core.version>
         <mongo-java-server.version>1.43.0</mongo-java-server.version>
-        <netty.version>4.1.101.Final</netty.version>
+        <netty.version>4.1.104.Final</netty.version>
         <nimbus-jose-jwt.version>9.37.1</nimbus-jose-jwt.version>
         <nimbusds.version>10.7</nimbusds.version>
         <okhttp.version>4.10.0</okhttp.version>
         <pax-url-aether.version>2.6.12</pax-url-aether.version>
         <reactor-core.version>3.5.12</reactor-core.version>
-        <reactor-netty-http.version>1.1.13</reactor-netty-http.version>
+        <reactor-netty-http.version>1.1.14</reactor-netty-http.version>
         <rest-assured.version>5.3.2</rest-assured.version>
         <slf4j-log4j12.version>2.0.9</slf4j-log4j12.version>
         <slf4j.version>2.0.9</slf4j.version>
