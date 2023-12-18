@@ -1,0 +1,6 @@
+= Daikon Release Notes (8.5.6) - 12/18/2023
+
+Thanks to @Franck Zetule
+
+== Other
+- chore(TPRUN-7303): CVE-2023-XXXXX Update netty-handler:4.1.104.Final, reactor-netty-http:1.1.14 (#1052) (link:https://github.com/Talend/daikon/pull/1052[#1052])
