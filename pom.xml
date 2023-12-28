@@ -31,7 +31,7 @@
         <assertj-core.version>3.8.0</assertj-core.version>
         <aspectjweaver.version>1.8.9</aspectjweaver.version>
         <asm.version>9.2</asm.version>
-        <avro.version>1.10.2</avro.version>
+        <avro.version>1.11.3</avro.version>
         <aws-java-sdk-s3.version>1.11.18</aws-java-sdk-s3.version>
         <bcprov.version>1.69</bcprov.version>
         <bnd.version>3.0.0</bnd.version>

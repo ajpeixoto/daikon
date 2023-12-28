@@ -16,7 +16,7 @@ public class IamBearerTokenAuthentication extends BearerTokenAuthentication {
     private AuthUserDetails authUserDetails;
 
     public IamBearerTokenAuthentication(OAuth2AuthenticatedPrincipal principal, OAuth2AccessToken credentials,
-                                        Collection<? extends GrantedAuthority> authorities) {
+            Collection<? extends GrantedAuthority> authorities) {
         super(principal, credentials, authorities);
 
         if (this.getPrincipal() instanceof AuthUserDetails) {
