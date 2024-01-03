@@ -86,7 +86,7 @@
         <mockito-core.version>5.2.0</mockito-core.version>
         <mongo-java-server.version>1.43.0</mongo-java-server.version>
         <netty.version>4.1.104.Final</netty.version>
-        <nimbus-jose-jwt.version>9.37.1</nimbus-jose-jwt.version>
+        <nimbus-jose-jwt.version>9.37.3</nimbus-jose-jwt.version>
         <nimbusds.version>10.7</nimbusds.version>
         <okhttp.version>4.10.0</okhttp.version>
         <pax-url-aether.version>2.6.12</pax-url-aether.version>
@@ -96,8 +96,8 @@
         <slf4j-log4j12.version>2.0.9</slf4j-log4j12.version>
         <slf4j.version>2.0.9</slf4j.version>
         <snakeyaml.version>2.2</snakeyaml.version>
-        <spring-boot-dependencies.version>3.2.0</spring-boot-dependencies.version>
-        <spring-boot.version>3.2.0</spring-boot.version>
+        <spring-boot.version>3.2.1</spring-boot.version>
+        <spring-boot-dependencies.version>${spring-boot.version}</spring-boot-dependencies.version>
         <spring-cloud-aws-dependencies.version>3.0.3</spring-cloud-aws-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
         <testcontainers.version>1.17.6</testcontainers.version>
@@ -108,7 +108,7 @@
         <yarn.version>v1.22.10</yarn.version>
 
         <!-- internal talend version -->
-        <maplang.version>1.7.0</maplang.version>
+        <maplang.version>1.10.0</maplang.version>
         <talend-platform-sdk.version>3.7.0</talend-platform-sdk.version>
 
         <!-- Scala -->
@@ -248,6 +248,21 @@
     </distributionManagement>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-access</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
