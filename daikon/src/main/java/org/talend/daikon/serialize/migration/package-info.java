@@ -56,4 +56,5 @@
  * and the version number of the serialized object is provided.
  * </ol>
  */
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.daikon.serialize.migration;

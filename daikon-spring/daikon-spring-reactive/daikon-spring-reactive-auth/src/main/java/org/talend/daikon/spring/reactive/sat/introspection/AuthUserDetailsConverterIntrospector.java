@@ -1,3 +1,4 @@
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.daikon.spring.reactive.sat.introspection;
 
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;

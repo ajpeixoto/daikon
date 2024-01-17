@@ -1,3 +1,4 @@
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.daikon.crypto.digest;
 
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;

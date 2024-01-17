@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.daikon.sandbox;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

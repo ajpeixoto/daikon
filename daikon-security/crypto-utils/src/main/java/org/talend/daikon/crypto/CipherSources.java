@@ -1,3 +1,4 @@
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.daikon.crypto;
 
 import static org.talend.daikon.crypto.EncodingUtils.BASE64_DECODER;

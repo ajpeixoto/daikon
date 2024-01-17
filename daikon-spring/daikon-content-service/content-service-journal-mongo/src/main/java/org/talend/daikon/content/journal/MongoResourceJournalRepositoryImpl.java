@@ -1,3 +1,4 @@
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.daikon.content.journal;
 
 import static org.springframework.data.mongodb.core.query.Criteria.byExample;

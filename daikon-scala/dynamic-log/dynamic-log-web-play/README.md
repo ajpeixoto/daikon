@@ -38,6 +38,6 @@ Or for a package :
 
 ## License
 
-Copyright (c) 2006-2017 Talend
+Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 
 Licensed under the [Apache Licence v2](https://www.apache.org/licenses/LICENSE-2.0.txt)

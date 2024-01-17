@@ -1,3 +1,4 @@
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.daikon.pattern.character;
 
 import static org.talend.daikon.pattern.PatternRegexUtils.buildRegex;
