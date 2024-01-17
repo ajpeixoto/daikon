@@ -1,3 +1,4 @@
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.daikon.content.s3.provider;
 
 import software.amazon.awssdk.services.s3.S3Client;

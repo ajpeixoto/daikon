@@ -1,3 +1,4 @@
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.daikon.spring.license.client.autoconfigure;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;

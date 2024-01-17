@@ -1,3 +1,4 @@
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.logging.audit.logback;
 
 import static org.hamcrest.MatcherAssert.assertThat;

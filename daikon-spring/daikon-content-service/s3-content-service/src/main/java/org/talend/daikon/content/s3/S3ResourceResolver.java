@@ -1,3 +1,4 @@
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.daikon.content.s3;
 
 import static org.talend.daikon.content.s3.LocationUtils.S3PathBuilder.builder;

@@ -1,3 +1,4 @@
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.daikon.serialize;
 
 import static org.talend.daikon.properties.presentation.Widget.BUTTON_WIDGET_TYPE;

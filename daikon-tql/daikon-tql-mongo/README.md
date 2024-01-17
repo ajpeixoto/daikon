@@ -23,4 +23,4 @@ used regular expressions are quite more complicated in this case.
 
 ## License
 
-Copyright (c) 2006-2018 Talend
+Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com

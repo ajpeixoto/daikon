@@ -1,3 +1,4 @@
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.daikon.serialize.migration;
 
 import org.talend.daikon.serialize.PostDeserializeSetup;

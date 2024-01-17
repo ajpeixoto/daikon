@@ -1,3 +1,4 @@
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.tql;
 
 import org.antlr.v4.runtime.CharStream;

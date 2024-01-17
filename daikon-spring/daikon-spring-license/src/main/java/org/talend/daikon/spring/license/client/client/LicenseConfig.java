@@ -1,3 +1,4 @@
+// Copyright 2005 - 2024 Talend, Inc., All Rights Reserved - www.talend.com
 package org.talend.daikon.spring.license.client.client;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
